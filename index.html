@@ -1,0 +1,2790 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="artifact-type" content="narrative">
+  <meta name="design-style" content="sticker">
+  <title>有趣的聲光現象｜四年級康軒自然方格筆記與互動心智圖</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@500;700&family=Noto+Sans+TC:wght@400;500;700;900&family=Zen+Maru+Gothic:wght@500;700;900&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      color-scheme: light;
+
+      /* Page and notebook paper surfaces */
+      --background: #fbfaf5;
+      --grid-line: #dde7f3;
+      --margin-line: #f3b5b5;
+      --surface-container-low: #ffffff;
+      --surface-container: #f3f6fb;
+      --surface-container-high: #fff7cc;
+
+      /* Ink palette: Black body, Red core concepts, Blue hints & annotations */
+      --on-surface: #1d232a;
+      --on-surface-variant: #4a5568;
+
+      /* Rules and notebook borders */
+      --outline: #2f3b4c;
+      --outline-variant: #cbd5e1;
+
+      /* Accents */
+      --primary: #c92a2a;
+      --on-primary: #ffffff;
+      --primary-container: #ffe3e3;
+      --on-primary-container: #8a1515;
+
+      --secondary: #1864ab;
+      --on-secondary: #ffffff;
+      --secondary-container: #e7f5ff;
+      --on-secondary-container: #0c3d6e;
+
+      --tertiary: #f59f00;
+      --tertiary-container: #fff3bf;
+      --on-tertiary-container: #663c00;
+
+      /* Semantic */
+      --positive: #237032;
+      --positive-container: #ebfbee;
+      --warning: #b45309;
+      --error: #c92a2a;
+      --on-error: #ffffff;
+      --focus: #1864ab;
+
+      /* Data & diagram series */
+      --data-1: #c92a2a;
+      --data-2: #1864ab;
+      --data-3: #237032;
+      --data-4: #f59f00;
+      --data-context: #94a3b8;
+
+      /* Fonts */
+      --font-headline: 'Zen Maru Gothic', 'Noto Sans TC', sans-serif;
+      --font-body: 'Noto Sans TC', sans-serif;
+      --font-label: 'JetBrains Mono', 'Noto Sans TC', monospace;
+
+      /* Shape */
+      --rounded: 1rem;
+      --rounded-lg: 1.5rem;
+      --rounded-full: 9999px;
+
+      /* Type scale (Narrative) */
+      --display-size: clamp(2rem, 1.35rem + 2.6vw, 3.35rem);
+      --headline-size: clamp(1.5rem, 1.15rem + 1.4vw, 2.15rem);
+      --subhead-size: clamp(1.125rem, 1.02rem + 0.45vw, 1.35rem);
+      --body-size: clamp(1rem, 0.96rem + 0.2vw, 1.125rem);
+      --label-size: clamp(0.75rem, 0.72rem + 0.12vw, 0.85rem);
+
+      /* Spacing scale (4pt base) */
+      --space-xs: 0.25rem;
+      --space-sm: 0.5rem;
+      --space-md: 1rem;
+      --space-lg: 1.5rem;
+      --space-xl: 2.5rem;
+      --space-2xl: 4rem;
+
+      /* Effects */
+      --shadow-red: 0 6px 18px rgb(201 42 42 / 0.14);
+      --shadow-blue: 0 6px 18px rgb(24 100 171 / 0.14);
+      --shadow-gold: 0 6px 18px rgb(245 159 0 / 0.18);
+      --shadow-ink: 4px 4px 0 var(--outline);
+      --shadow-ink-red: 4px 4px 0 var(--primary);
+      --shadow-ink-blue: 4px 4px 0 var(--secondary);
+      --pop-scale: scale(1.03);
+      --lift: translateY(-3px);
+
+      /* Motion */
+      --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+      --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+      --ease-bounce: cubic-bezier(0.34, 1.56, 0.64, 1);
+      --dur-micro: 120ms;
+      --dur-short: 220ms;
+      --dur-long: 420ms;
+    }
+
+    /* Base Reset */
+    *, *::before, *::after { box-sizing: border-box; }
+    html, body {
+      overflow-x: clip;
+      margin: 0;
+      padding: 0;
+      scroll-behavior: smooth;
+    }
+    header { position: static !important; }
+
+    body {
+      font-family: var(--font-body);
+      font-size: var(--body-size);
+      line-height: 1.65;
+      color: var(--on-surface);
+      background-color: var(--background);
+      background-image:
+        linear-gradient(to right, var(--grid-line) 1px, transparent 1px),
+        linear-gradient(to bottom, var(--grid-line) 1px, transparent 1px);
+      background-size: 24px 24px;
+    }
+
+    button, input, select, textarea {
+      font-family: inherit;
+    }
+
+    :focus-visible {
+      outline: 3px solid var(--focus);
+      outline-offset: 2px;
+    }
+
+    /* Main Grid Notebook Sheet */
+    .notebook-shell {
+      max-width: 1120px;
+      margin: 0 auto;
+      padding: var(--space-lg) var(--space-md) var(--space-2xl);
+    }
+
+    .notebook-sheet {
+      position: relative;
+      background-color: var(--surface-container-low);
+      background-image:
+        linear-gradient(to right, var(--grid-line) 1px, transparent 1px),
+        linear-gradient(to bottom, var(--grid-line) 1px, transparent 1px);
+      background-size: 24px 24px;
+      border: 2px solid var(--outline);
+      border-radius: var(--rounded-lg);
+      box-shadow: 0 12px 32px rgb(29 35 42 / 0.08);
+      padding: var(--space-xl) var(--space-xl) var(--space-2xl) calc(var(--space-xl) + 1.25rem);
+      overflow: hidden;
+    }
+
+    /* Red notebook margin line & punch holes */
+    .notebook-sheet::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: 2.25rem;
+      width: 2px;
+      background-color: var(--margin-line);
+      pointer-events: none;
+    }
+
+    .binder-holes {
+      position: absolute;
+      top: var(--space-xl);
+      bottom: var(--space-xl);
+      left: 0.65rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      pointer-events: none;
+      z-index: 2;
+    }
+
+    .binder-hole {
+      width: 16px;
+      height: 16px;
+      border-radius: var(--rounded-full);
+      background-color: var(--background);
+      border: 2px solid var(--outline-variant);
+      box-shadow: inset 1px 1px 2px rgb(29 35 42 / 0.14);
+    }
+
+    /* Typography helpers */
+    h1, h2, h3, h4 {
+      font-family: var(--font-headline);
+      margin: 0;
+      color: var(--on-surface);
+      line-height: 1.2;
+    }
+
+    p {
+      margin: 0 0 var(--space-md);
+      max-width: 65ch;
+    }
+
+    .red-key {
+      color: var(--primary);
+      font-weight: 700;
+      background-image: linear-gradient(transparent 72%, var(--primary-container) 72%);
+      padding: 0 0.18em;
+      border-radius: 3px;
+    }
+
+    .red-circle {
+      display: inline-block;
+      color: var(--primary);
+      font-weight: 900;
+      border: 2px solid var(--primary);
+      border-radius: var(--rounded-full);
+      padding: 0.05em 0.55em;
+      background-color: var(--surface-container-low);
+    }
+
+    .blue-note {
+      color: var(--secondary);
+      font-weight: 700;
+    }
+
+    .highlighter {
+      background-color: var(--tertiary-container);
+      color: var(--on-surface);
+      font-weight: 700;
+      padding: 0.05em 0.3em;
+      border-radius: 4px;
+    }
+
+    /* Header Cover & Quick Navigation */
+    .hero-header {
+      display: grid;
+      grid-template-columns: minmax(0, 1.35fr) minmax(0, 0.9fr);
+      gap: var(--space-xl);
+      align-items: center;
+      padding-bottom: var(--space-xl);
+      border-bottom: 2px dashed var(--outline-variant);
+      margin-bottom: var(--space-xl);
+    }
+
+    .lesson-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-sm);
+      background-color: var(--tertiary-container);
+      color: var(--on-tertiary-container);
+      border: 2px solid var(--outline);
+      border-radius: var(--rounded-full);
+      padding: var(--space-xs) var(--space-md);
+      font-family: var(--font-label);
+      font-size: var(--label-size);
+      font-weight: 700;
+      margin-bottom: var(--space-md);
+      box-shadow: 2px 2px 0 var(--outline);
+    }
+
+    .hero-title {
+      font-size: var(--display-size);
+      font-weight: 900;
+      letter-spacing: -0.02em;
+      margin-bottom: var(--space-md);
+    }
+
+    .hero-title .accent-red {
+      color: var(--primary);
+      text-decoration: underline wavy var(--primary);
+      text-underline-offset: 6px;
+    }
+
+    .hero-title .accent-blue {
+      color: var(--secondary);
+    }
+
+    .hero-lead {
+      font-size: var(--subhead-size);
+      color: var(--on-surface-variant);
+      margin-bottom: var(--space-lg);
+      max-width: 52ch;
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-sm);
+      align-items: center;
+    }
+
+    /* Buttons (Sticker tactile pop + notebook border) */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: var(--space-sm);
+      min-height: 44px;
+      padding: var(--space-sm) var(--space-lg);
+      border-radius: var(--rounded-full);
+      border: 2px solid var(--outline);
+      font-weight: 700;
+      font-size: 0.95rem;
+      cursor: pointer;
+      text-decoration: none;
+      transition: transform var(--dur-short) var(--ease-bounce), box-shadow var(--dur-short) var(--ease-out), background-color var(--dur-micro) ease;
+    }
+
+    .btn:hover { transform: var(--pop-scale); }
+    .btn:active { transform: scale(0.97); }
+
+    .btn-primary {
+      background-color: var(--primary);
+      color: var(--on-primary);
+      box-shadow: 3px 3px 0 var(--outline);
+    }
+    .btn-primary:hover { box-shadow: 4px 5px 0 var(--outline); }
+
+    .btn-secondary {
+      background-color: var(--secondary);
+      color: var(--on-secondary);
+      box-shadow: 3px 3px 0 var(--outline);
+    }
+
+    .btn-outline {
+      background-color: var(--surface-container-low);
+      color: var(--on-surface);
+      box-shadow: 3px 3px 0 var(--outline-variant);
+    }
+
+    .btn-soft-blue {
+      background-color: var(--secondary-container);
+      color: var(--on-secondary-container);
+      border-color: var(--secondary);
+      box-shadow: 2px 2px 0 var(--secondary);
+    }
+
+    .btn-sm {
+      min-height: 40px;
+      padding: var(--space-xs) var(--space-md);
+      font-size: 0.875rem;
+    }
+
+    /* Hero Doodle Card */
+    .hero-doodle-board {
+      position: relative;
+      background-color: var(--surface-container-low);
+      border: 2px solid var(--outline);
+      border-radius: var(--rounded-lg);
+      padding: var(--space-lg);
+      box-shadow: var(--shadow-ink-blue);
+    }
+
+    .tape-strip {
+      position: absolute;
+      top: -12px;
+      left: 50%;
+      transform: translateX(-50%) rotate(-2deg);
+      width: 96px;
+      height: 24px;
+      background-color: var(--tertiary-container);
+      border: 1.5px dashed var(--tertiary);
+      opacity: 0.92;
+      pointer-events: none;
+    }
+
+    .hero-progress-box {
+      margin-top: var(--space-md);
+      background-color: var(--surface-container);
+      border: 1.5px solid var(--outline-variant);
+      border-radius: var(--rounded);
+      padding: var(--space-sm) var(--space-md);
+    }
+
+    .progress-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: var(--label-size);
+      font-weight: 700;
+      margin-bottom: var(--space-xs);
+    }
+
+    .progress-track {
+      height: 12px;
+      background-color: var(--surface-container-low);
+      border: 1.5px solid var(--outline);
+      border-radius: var(--rounded-full);
+      overflow: hidden;
+    }
+
+    .progress-fill {
+      height: 100%;
+      width: 0%;
+      background-color: var(--positive);
+      border-radius: var(--rounded-full);
+      transition: width var(--dur-long) var(--ease-out);
+    }
+
+    /* Chapter Index Tabs (Sticky-Note Bookmarks) */
+    .chapter-nav {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-sm);
+      margin-bottom: var(--space-xl);
+    }
+
+    .nav-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      min-height: 44px;
+      padding: var(--space-xs) var(--space-md);
+      background-color: var(--surface-container-low);
+      border: 2px solid var(--outline);
+      border-radius: var(--rounded-full);
+      color: var(--on-surface);
+      text-decoration: none;
+      font-weight: 700;
+      font-size: 0.9rem;
+      box-shadow: 2px 2px 0 var(--outline-variant);
+      transition: transform var(--dur-short) var(--ease-bounce), background-color var(--dur-micro) ease;
+    }
+
+    .nav-pill:hover {
+      transform: var(--lift);
+      background-color: var(--surface-container-high);
+    }
+
+    .nav-pill.nav-game {
+      background-color: var(--primary-container);
+      color: var(--on-primary-container);
+      border-color: var(--primary);
+      box-shadow: 2px 2px 0 var(--primary);
+    }
+
+    /* Section Styling */
+    .study-section {
+      margin-bottom: var(--space-2xl);
+      scroll-margin-top: var(--space-lg);
+    }
+
+    .section-header {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: var(--space-md);
+      margin-bottom: var(--space-lg);
+    }
+
+    .chapter-tag {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 48px;
+      height: 36px;
+      padding: 0 var(--space-md);
+      border-radius: var(--rounded-full);
+      font-family: var(--font-label);
+      font-weight: 700;
+      font-size: var(--label-size);
+      border: 2px solid var(--outline);
+    }
+
+    .chapter-tag.sound {
+      background-color: var(--primary-container);
+      color: var(--on-primary-container);
+      box-shadow: 2px 2px 0 var(--primary);
+    }
+
+    .chapter-tag.light {
+      background-color: var(--secondary-container);
+      color: var(--on-secondary-container);
+      box-shadow: 2px 2px 0 var(--secondary);
+    }
+
+    .chapter-tag.apply {
+      background-color: var(--tertiary-container);
+      color: var(--on-tertiary-container);
+      box-shadow: 2px 2px 0 var(--tertiary);
+    }
+
+    .section-title {
+      font-size: var(--headline-size);
+      font-weight: 900;
+    }
+
+    .section-title span.sound-word { color: var(--primary); }
+    .section-title span.light-word { color: var(--secondary); }
+
+    /* Two-column Section Layout: Note Cards + Interactive Lab */
+    .content-split {
+      display: grid;
+      grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
+      gap: var(--space-lg);
+      align-items: start;
+    }
+
+    .note-card {
+      position: relative;
+      background-color: var(--surface-container-low);
+      border: 2px solid var(--outline);
+      border-radius: var(--rounded);
+      padding: var(--space-lg);
+      box-shadow: var(--shadow-red);
+    }
+
+    .note-card.blue-shadow {
+      box-shadow: var(--shadow-blue);
+    }
+
+    .note-card.gold-shadow {
+      box-shadow: var(--shadow-gold);
+    }
+
+    .note-card-title {
+      display: flex;
+      align-items: center;
+      gap: var(--space-sm);
+      font-size: var(--subhead-size);
+      font-weight: 900;
+      margin-bottom: var(--space-md);
+      padding-bottom: var(--space-xs);
+      border-bottom: 2px dashed var(--outline-variant);
+    }
+
+    .note-card-title.red { color: var(--primary); }
+    .note-card-title.blue { color: var(--secondary); }
+
+    /* Blue Pen Margin Callout */
+    .blue-callout {
+      background-color: var(--secondary-container);
+      border-left: 5px solid var(--secondary);
+      border-radius: 0 var(--rounded) var(--rounded) 0;
+      padding: var(--space-md);
+      margin-top: var(--space-md);
+      color: var(--on-surface);
+    }
+
+    .blue-callout-label {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-weight: 900;
+      color: var(--secondary);
+      margin-bottom: var(--space-xs);
+      font-size: 0.95rem;
+    }
+
+    /* Red Pen Key Rule Box */
+    .red-callout {
+      background-color: var(--primary-container);
+      border: 2px dashed var(--primary);
+      border-radius: var(--rounded);
+      padding: var(--space-md);
+      margin-top: var(--space-md);
+    }
+
+    .red-callout-label {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-weight: 900;
+      color: var(--on-primary-container);
+      margin-bottom: var(--space-xs);
+    }
+
+    /* Adaptive Card Grid */
+    .card-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(min(250px, 100%), 1fr));
+      gap: var(--space-lg);
+    }
+
+    .doodle-mini-card {
+      background-color: var(--surface-container-low);
+      border: 2px solid var(--outline);
+      border-radius: var(--rounded);
+      padding: var(--space-md);
+      box-shadow: 3px 3px 0 var(--outline-variant);
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-sm);
+    }
+
+    /* Step badges */
+    .step-list {
+      list-style: none;
+      padding: 0;
+      margin: var(--space-md) 0 0;
+      display: grid;
+      gap: var(--space-sm);
+    }
+
+    .step-item {
+      display: grid;
+      grid-template-columns: 32px minmax(0, 1fr);
+      gap: var(--space-sm);
+      align-items: start;
+      background-color: var(--surface-container);
+      padding: var(--space-sm) var(--space-md);
+      border-radius: var(--rounded);
+      border: 1.5px solid var(--outline-variant);
+    }
+
+    .step-num {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 28px;
+      height: 28px;
+      border-radius: var(--rounded-full);
+      background-color: var(--primary);
+      color: var(--on-primary);
+      font-family: var(--font-label);
+      font-weight: 700;
+      font-size: 0.85rem;
+    }
+
+    /* Comparison Table */
+    .notebook-table-wrap {
+      overflow-x: auto;
+      margin-top: var(--space-md);
+      border: 2px solid var(--outline);
+      border-radius: var(--rounded);
+      background-color: var(--surface-container-low);
+    }
+
+    table.notebook-table {
+      width: 100%;
+      border-collapse: collapse;
+      text-align: left;
+      font-size: 0.95rem;
+    }
+
+    .notebook-table th {
+      background-color: var(--surface-container);
+      color: var(--on-surface);
+      font-weight: 900;
+      padding: var(--space-sm) var(--space-md);
+      border-bottom: 2px solid var(--outline);
+    }
+
+    .notebook-table td {
+      padding: var(--space-sm) var(--space-md);
+      border-bottom: 1px dashed var(--outline-variant);
+      vertical-align: top;
+    }
+
+    .notebook-table tr:last-child td {
+      border-bottom: none;
+    }
+
+    /* Interactive Lab Panels */
+    .lab-panel {
+      background-color: var(--surface-container-low);
+      border: 2px solid var(--outline);
+      border-radius: var(--rounded-lg);
+      padding: var(--space-lg);
+      box-shadow: var(--shadow-ink);
+    }
+
+    .lab-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background-color: var(--secondary);
+      color: var(--on-secondary);
+      padding: 2px 12px;
+      border-radius: var(--rounded-full);
+      font-size: var(--label-size);
+      font-weight: 700;
+      margin-bottom: var(--space-sm);
+    }
+
+    .lab-stage {
+      min-height: 210px;
+      background-color: var(--surface-container);
+      border: 2px dashed var(--outline-variant);
+      border-radius: var(--rounded);
+      padding: var(--space-md);
+      margin: var(--space-md) 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .lab-controls {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-sm);
+      align-items: center;
+    }
+
+    .lab-btn {
+      min-height: 44px;
+      padding: var(--space-xs) var(--space-md);
+      border-radius: var(--rounded-full);
+      border: 2px solid var(--outline);
+      background-color: var(--surface-container-low);
+      color: var(--on-surface);
+      font-weight: 700;
+      font-size: 0.9rem;
+      cursor: pointer;
+      transition: transform var(--dur-short) var(--ease-bounce), background-color var(--dur-micro) ease;
+    }
+
+    .lab-btn:hover { transform: var(--pop-scale); }
+    .lab-btn.active {
+      background-color: var(--primary);
+      color: var(--on-primary);
+      box-shadow: 2px 2px 0 var(--outline);
+    }
+    .lab-btn.blue-active.active {
+      background-color: var(--secondary);
+      color: var(--on-secondary);
+    }
+
+    .range-field {
+      width: 100%;
+      display: grid;
+      gap: var(--space-xs);
+    }
+
+    .range-label {
+      display: flex;
+      justify-content: space-between;
+      font-weight: 700;
+      font-size: 0.95rem;
+    }
+
+    input[type="range"] {
+      width: 100%;
+      accent-color: var(--secondary);
+      cursor: pointer;
+      min-height: 32px;
+    }
+
+    /* Sound Race Bars */
+    .race-tracks {
+      width: 100%;
+      display: grid;
+      gap: var(--space-sm);
+    }
+
+    .race-row {
+      display: grid;
+      grid-template-columns: 95px minmax(0, 1fr) 68px;
+      align-items: center;
+      gap: var(--space-sm);
+    }
+
+    .race-label {
+      font-weight: 700;
+      font-size: 0.9rem;
+    }
+
+    .race-bar-track {
+      height: 22px;
+      background-color: var(--surface-container-low);
+      border: 1.5px solid var(--outline);
+      border-radius: var(--rounded-full);
+      overflow: hidden;
+      position: relative;
+    }
+
+    .race-bar-fill {
+      height: 100%;
+      width: 0%;
+      border-radius: var(--rounded-full);
+      transition: width var(--dur-long) var(--ease-out);
+    }
+
+    .race-bar-fill.solid { background-color: var(--primary); }
+    .race-bar-fill.liquid { background-color: var(--secondary); }
+    .race-bar-fill.gas { background-color: var(--tertiary); }
+    .race-bar-fill.vacuum { background-color: var(--data-context); }
+
+    .race-speed-tag {
+      font-family: var(--font-label);
+      font-size: 0.8rem;
+      font-weight: 700;
+      text-align: right;
+    }
+
+    /* Tuning fork vibration animation */
+    @keyframes forkShake {
+      0%, 100% { transform: translateX(0); }
+      25% { transform: translateX(-2px); }
+      75% { transform: translateX(2px); }
+    }
+
+    @keyframes wavePulse {
+      0% { opacity: 0.95; transform: scale(0.95); }
+      50% { opacity: 0.45; transform: scale(1.06); }
+      100% { opacity: 0.95; transform: scale(0.95); }
+    }
+
+    .is-vibrating-high {
+      animation: forkShake 90ms linear infinite;
+      transform-origin: center bottom;
+    }
+
+    .is-vibrating-low {
+      animation: forkShake 180ms linear infinite;
+      transform-origin: center bottom;
+    }
+
+    .wave-anim-fast {
+      animation: wavePulse 500ms ease-in-out infinite;
+      transform-origin: center;
+    }
+
+    .wave-anim-slow {
+      animation: wavePulse 1100ms ease-in-out infinite;
+      transform-origin: center;
+    }
+
+    /* ============================================================
+       INTERACTIVE MIND MAP FILL-IN-THE-BLANK GAME
+       ============================================================ */
+    .mindmap-section {
+      background-color: var(--surface-container-low);
+      border: 3px solid var(--outline);
+      border-radius: var(--rounded-lg);
+      padding: var(--space-xl) var(--space-lg);
+      box-shadow: 6px 6px 0 var(--primary);
+      scroll-margin-top: var(--space-lg);
+    }
+
+    .game-hud {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(min(200px, 100%), 1fr));
+      gap: var(--space-md);
+      background-color: var(--surface-container);
+      border: 2px solid var(--outline);
+      border-radius: var(--rounded);
+      padding: var(--space-md);
+      margin-bottom: var(--space-lg);
+    }
+
+    .hud-stat {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .hud-label {
+      font-size: var(--label-size);
+      font-weight: 700;
+      color: var(--on-surface-variant);
+    }
+
+    .hud-value {
+      font-family: var(--font-headline);
+      font-size: 1.4rem;
+      font-weight: 900;
+      color: var(--on-surface);
+      font-variant-numeric: tabular-nums;
+    }
+
+    .hud-value.red { color: var(--primary); }
+    .hud-value.blue { color: var(--secondary); }
+    .hud-value.green { color: var(--positive); }
+
+    .game-controls-bar {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: var(--space-md);
+      margin-bottom: var(--space-lg);
+    }
+
+    .filter-pills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-xs);
+    }
+
+    /* Word Bank Tray */
+    .word-bank-panel {
+      background-color: var(--surface-container-high);
+      border: 2px solid var(--outline);
+      border-radius: var(--rounded);
+      padding: var(--space-md);
+      margin-bottom: var(--space-lg);
+    }
+
+    .word-bank-title {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: var(--space-sm);
+      font-weight: 900;
+      margin-bottom: var(--space-sm);
+    }
+
+    .word-chips-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-sm);
+    }
+
+    .word-chip {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 44px;
+      padding: var(--space-xs) var(--space-md);
+      background-color: var(--surface-container-low);
+      border: 2px solid var(--outline);
+      border-radius: var(--rounded-full);
+      font-weight: 900;
+      font-size: 0.95rem;
+      color: var(--on-surface);
+      cursor: grab;
+      user-select: none;
+      box-shadow: 2px 3px 0 var(--outline);
+      transition: transform var(--dur-short) var(--ease-bounce), background-color var(--dur-micro) ease, box-shadow var(--dur-micro) ease;
+    }
+
+    .word-chip:hover:not(:disabled) {
+      transform: var(--pop-scale);
+      background-color: var(--secondary-container);
+    }
+
+    .word-chip.selected-chip {
+      background-color: var(--secondary);
+      color: var(--on-secondary);
+      border-color: var(--outline);
+      transform: translateY(-2px);
+      box-shadow: 3px 4px 0 var(--outline);
+    }
+
+    .word-chip.used-chip {
+      opacity: 0.42;
+      cursor: not-allowed;
+      box-shadow: none;
+      text-decoration: line-through;
+    }
+
+    /* Feedback / Hint / Explanation Banner */
+    .feedback-board {
+      min-height: 76px;
+      background-color: var(--secondary-container);
+      border: 2px solid var(--secondary);
+      border-radius: var(--rounded);
+      padding: var(--space-md);
+      margin-bottom: var(--space-lg);
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--space-md);
+    }
+
+    .feedback-board.state-correct {
+      background-color: var(--positive-container);
+      border-color: var(--positive);
+    }
+
+    .feedback-board.state-wrong {
+      background-color: var(--primary-container);
+      border-color: var(--primary);
+    }
+
+    .feedback-text {
+      flex: 1 1 280px;
+    }
+
+    .feedback-heading {
+      font-weight: 900;
+      font-size: 1rem;
+      margin-bottom: 2px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    /* Mind Map Canvas + Nodes */
+    .mindmap-canvas {
+      position: relative;
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 210px minmax(0, 1fr);
+      gap: var(--space-lg);
+      align-items: center;
+      padding: var(--space-md) 0;
+    }
+
+    .mindmap-svg-layer {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .branch-column {
+      position: relative;
+      z-index: 1;
+      display: grid;
+      gap: var(--space-md);
+    }
+
+    .branch-group-label {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-family: var(--font-headline);
+      font-weight: 900;
+      font-size: 1.05rem;
+      padding: var(--space-xs) var(--space-md);
+      border-radius: var(--rounded-full);
+      border: 2px solid var(--outline);
+      width: fit-content;
+    }
+
+    .branch-group-label.sound {
+      background-color: var(--primary-container);
+      color: var(--on-primary-container);
+    }
+
+    .branch-group-label.light {
+      background-color: var(--secondary-container);
+      color: var(--on-secondary-container);
+    }
+
+    .mindmap-center-hub {
+      position: relative;
+      z-index: 2;
+      background-color: var(--tertiary-container);
+      border: 3px solid var(--outline);
+      border-radius: var(--rounded-lg);
+      padding: var(--space-lg) var(--space-md);
+      text-align: center;
+      box-shadow: 5px 5px 0 var(--outline);
+    }
+
+    .mindmap-center-title {
+      font-family: var(--font-headline);
+      font-weight: 900;
+      font-size: 1.35rem;
+      color: var(--on-surface);
+      margin: var(--space-xs) 0;
+    }
+
+    .mm-node {
+      position: relative;
+      background-color: var(--surface-container-low);
+      border: 2px solid var(--outline);
+      border-radius: var(--rounded);
+      padding: var(--space-md);
+      box-shadow: 3px 3px 0 var(--outline-variant);
+      transition: transform var(--dur-short) var(--ease-bounce), box-shadow var(--dur-short) ease;
+    }
+
+    .mm-node.sound-node {
+      border-left: 6px solid var(--primary);
+    }
+
+    .mm-node.light-node {
+      border-left: 6px solid var(--secondary);
+    }
+
+    .mm-node.is-active-node {
+      box-shadow: 0 0 0 3px var(--tertiary), 4px 4px 0 var(--outline);
+      transform: translateY(-2px);
+    }
+
+    .mm-node.is-solved {
+      background-color: var(--positive-container);
+      border-color: var(--positive);
+      border-left-width: 6px;
+    }
+
+    .mm-node.is-hidden-filter {
+      display: none;
+    }
+
+    .mm-node-meta {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: var(--space-xs);
+      margin-bottom: var(--space-xs);
+    }
+
+    .mm-node-tag {
+      font-family: var(--font-label);
+      font-size: 0.78rem;
+      font-weight: 700;
+      color: var(--on-surface-variant);
+    }
+
+    .mm-hint-btn {
+      min-height: 32px;
+      padding: 2px 10px;
+      border-radius: var(--rounded-full);
+      border: 1.5px solid var(--secondary);
+      background-color: var(--secondary-container);
+      color: var(--on-secondary-container);
+      font-size: 0.78rem;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    .mm-hint-btn:hover {
+      background-color: var(--secondary);
+      color: var(--on-secondary);
+    }
+
+    .mm-sentence {
+      font-size: 0.96rem;
+      line-height: 1.75;
+      color: var(--on-surface);
+      margin: 0;
+    }
+
+    .blank-slot {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 82px;
+      min-height: 36px;
+      padding: 2px 12px;
+      margin: 0 4px;
+      border: 2px dashed var(--primary);
+      border-radius: var(--rounded-full);
+      background-color: var(--primary-container);
+      color: var(--on-primary-container);
+      font-weight: 900;
+      font-size: 0.95rem;
+      cursor: pointer;
+      vertical-align: middle;
+      transition: transform var(--dur-short) var(--ease-bounce), background-color var(--dur-micro) ease;
+    }
+
+    .light-node .blank-slot {
+      border-color: var(--secondary);
+      background-color: var(--secondary-container);
+      color: var(--on-secondary-container);
+    }
+
+    .blank-slot.drag-over {
+      transform: scale(1.08);
+      background-color: var(--tertiary-container);
+      border-style: solid;
+    }
+
+    .blank-slot.slot-filled {
+      border-style: solid;
+      border-color: var(--positive);
+      background-color: var(--positive);
+      color: var(--on-primary);
+    }
+
+    .blank-slot.slot-wrong {
+      animation: forkShake 220ms linear 2;
+      background-color: var(--primary);
+      color: var(--on-primary);
+    }
+
+    /* Footer Sources Note */
+    .notebook-footer {
+      margin-top: var(--space-xl);
+      padding-top: var(--space-lg);
+      border-top: 2px dashed var(--outline-variant);
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: var(--space-md);
+      font-size: 0.875rem;
+      color: var(--on-surface-variant);
+    }
+
+    /* Responsive Breakpoints */
+    @media (max-width: 960px) {
+      .hero-header,
+      .content-split {
+        grid-template-columns: 1fr;
+      }
+
+      .mindmap-canvas {
+        grid-template-columns: 1fr;
+      }
+
+      .mindmap-center-hub {
+        order: -1;
+      }
+
+      .mindmap-svg-layer {
+        display: none;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .notebook-shell {
+        padding: var(--space-sm);
+      }
+
+      .notebook-sheet {
+        padding: var(--space-lg) var(--space-md) var(--space-xl) calc(var(--space-md) + 1rem);
+      }
+
+      .notebook-sheet::before {
+        left: 1.35rem;
+      }
+
+      .binder-holes {
+        left: 0.25rem;
+      }
+
+      .binder-hole {
+        width: 12px;
+        height: 12px;
+      }
+
+      .race-row {
+        grid-template-columns: 76px minmax(0, 1fr) 58px;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="notebook-shell">
+    <main class="notebook-sheet">
+      <div class="binder-holes" aria-hidden="true">
+        <span class="binder-hole"></span>
+        <span class="binder-hole"></span>
+        <span class="binder-hole"></span>
+        <span class="binder-hole"></span>
+        <span class="binder-hole"></span>
+        <span class="binder-hole"></span>
+      </div>
+
+      <!-- HEADER / COVER PAGE -->
+      <header class="hero-header">
+        <div>
+          <div class="lesson-badge">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/>
+            </svg>
+            <span>四年級康軒自然・第三課重點筆記</span>
+          </div>
+          <h1 class="hero-title">
+            <span class="accent-red">聲</span>與<span class="accent-blue">光</span>的科學大探險
+          </h1>
+          <p class="hero-lead">
+            歡迎翻開自然方格筆記本！用<strong class="red-key">紅筆圈出核心重點</strong>、用<strong class="blue-note">藍筆寫下實驗提示</strong>，一邊動手玩互動小實驗，最後挑戰把整張「聲光心智圖」填滿吧！
+          </p>
+          <div class="hero-actions">
+            <a href="#sec-sound" class="btn btn-primary">從第 1 課開始讀</a>
+            <a href="#sec-mindmap" class="btn btn-secondary">直接挑戰心智圖遊戲</a>
+            <button type="button" class="btn btn-outline" id="sound-toggle-btn" onclick="toggleAudioEffect()">
+              音效：開啟
+            </button>
+          </div>
+        </div>
+
+        <!-- Hand-drawn Hero Doodle Summary Board -->
+        <aside class="hero-doodle-board" aria-label="學習筆記塗鴉與進度">
+          <div class="tape-strip" aria-hidden="true"></div>
+          <svg viewBox="0 0 320 155" width="100%" height="auto" aria-hidden="true">
+            <!-- Hand-drawn Tuning Fork (Red) -->
+            <path d="M52 24 v46 c0 14 20 14 20 0 v-46" fill="none" stroke="var(--primary)" stroke-width="4" stroke-linecap="round"/>
+            <path d="M62 80 v32" fill="none" stroke="var(--primary)" stroke-width="4.5" stroke-linecap="round"/>
+            <path d="M40 34 q-10 15 0 30 M30 28 q-14 21 0 42" fill="none" stroke="var(--primary)" stroke-width="2.2" stroke-linecap="round" stroke-dasharray="4 4"/>
+            <path d="M84 34 q10 15 0 30 M94 28 q14 21 0 42" fill="none" stroke="var(--primary)" stroke-width="2.2" stroke-linecap="round" stroke-dasharray="4 4"/>
+            <text x="62" y="136" text-anchor="middle" font-size="13" font-weight="700" fill="var(--primary)">聲音＝振動</text>
+
+            <!-- Hand-drawn Plus / Arrow -->
+            <circle cx="155" cy="64" r="14" fill="var(--tertiary-container)" stroke="var(--outline)" stroke-width="2"/>
+            <path d="M149 64 h12 M155 58 v12" stroke="var(--outline)" stroke-width="2.4" stroke-linecap="round"/>
+
+            <!-- Hand-drawn Lightbulb + Rainbow Rays (Blue & Gold) -->
+            <path d="M236 30 c-16 0-26 12-26 25 c0 9 5 15 10 21 c3 3 4 7 4 11 h24 c0-4 1-8 4-11 c5-6 10-12 10-21 c0-13-10-25-26-25z" fill="var(--tertiary-container)" stroke="var(--secondary)" stroke-width="3.2" stroke-linejoin="round"/>
+            <path d="M226 95 h20 M228 103 h16" stroke="var(--outline)" stroke-width="3" stroke-linecap="round"/>
+            <path d="M236 10 v-6 M198 30 l-8-6 M274 30 l8-6 M192 58 h-10 M280 58 h10" stroke="var(--secondary)" stroke-width="2.5" stroke-linecap="round"/>
+            <!-- Small rainbow arc -->
+            <path d="M208 120 a36 22 0 0 1 56 0" fill="none" stroke="var(--primary)" stroke-width="3" stroke-linecap="round"/>
+            <path d="M214 122 a30 17 0 0 1 44 0" fill="none" stroke="var(--tertiary)" stroke-width="3" stroke-linecap="round"/>
+            <path d="M220 124 a24 12 0 0 1 32 0" fill="none" stroke="var(--secondary)" stroke-width="3" stroke-linecap="round"/>
+            <text x="236" y="142" text-anchor="middle" font-size="13" font-weight="700" fill="var(--secondary)">光＝直線與反射</text>
+          </svg>
+
+          <div class="hero-progress-box">
+            <div class="progress-header">
+              <span>心智圖探險完成度</span>
+              <span id="hero-progress-text" class="blue-note">0 / 12 格</span>
+            </div>
+            <div class="progress-track">
+              <div class="progress-fill" id="hero-progress-bar"></div>
+            </div>
+          </div>
+        </aside>
+      </header>
+
+      <!-- QUICK NOTEBOOK BOOKMARKS -->
+      <nav class="chapter-nav" aria-label="筆記章節快速跳轉">
+        <a href="#sec-sound" class="nav-pill">1. 聲音的秘密</a>
+        <a href="#sec-medium" class="nav-pill">2. 傳播跑道與介質</a>
+        <a href="#sec-light" class="nav-pill">3. 光走直線與影子</a>
+        <a href="#sec-mirror" class="nav-pill">4. 反射與哈哈鏡</a>
+        <a href="#sec-apply" class="nav-pill">5. 聲光生活大應用</a>
+        <a href="#sec-mindmap" class="nav-pill nav-game">6. 互動心智圖填充遊戲</a>
+      </nav>
+
+      <!-- ============================================================
+           SECTION 1: 聲音的秘密（振動與聽覺）
+           ============================================================ -->
+      <section id="sec-sound" class="study-section">
+        <div class="section-header">
+          <span class="chapter-tag sound">單元 01・聲音篇</span>
+          <h2 class="section-title">所有聲音的共同秘密：<span class="sound-word">物體振動了！</span></h2>
+        </div>
+
+        <div class="content-split">
+          <article class="note-card">
+            <h3 class="note-card-title red">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true">
+                <path d="M9 3v9a3 3 0 0 0 6 0V3M12 15v6M8 21h8"/>
+              </svg>
+              <span>紅筆筆記：振動決定聲音大小</span>
+            </h3>
+            <p>
+              不論是說話、彈吉他還是打鼓，聲音產生的共同秘密只有兩個字——<span class="red-circle">振動</span>！當物體開始來回振動，聲音就誕生了。
+            </p>
+            <p>
+              物體的振動狀態，會直接決定我們聽到的音量大小：
+            </p>
+            <ul class="step-list">
+              <li class="step-item">
+                <span class="step-num">大</span>
+                <div><strong class="red-key">振動大 → 發出的聲音大</strong>（用力敲鼓，鼓面上的紙屑跳得很高！）</div>
+              </li>
+              <li class="step-item">
+                <span class="step-num">小</span>
+                <div><strong class="red-key">振動小 → 發出的聲音小</strong>（輕輕碰鼓面，紙屑只微微跳動。）</div>
+              </li>
+              <li class="step-item">
+                <span class="step-num">停</span>
+                <div><strong class="red-key">停止振動 → 聲音就停止</strong>（用手按住發聲中的音叉，聲音立刻消失！）</div>
+              </li>
+            </ul>
+
+            <div class="blue-callout">
+              <div class="blue-callout-label">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true">
+                  <circle cx="12" cy="12" r="9"/><path d="M12 8v4M12 16h.01"/>
+                </svg>
+                <span>藍筆補充：動物溝通與人類聽覺三步驟</span>
+              </div>
+              <p style="margin-bottom: var(--space-sm);">
+                <strong>大自然的發聲高手：</strong><span class="blue-note">雄蟋蟀</span>摩擦翅膀發聲求偶；<span class="blue-note">海豚</span>發出聲音探測環境、找食物與聯絡夥伴。
+              </p>
+              <p style="margin-bottom: 0;">
+                <strong>耳朵怎麼聽到聲音？</strong> ① 物體振動 → ② 帶動周圍空氣振動 → ③ 空氣振動形成聲波傳入耳朵！
+              </p>
+            </div>
+          </article>
+
+          <!-- Interactive Lab 1: Tuning Fork Vibration Simulator -->
+          <div class="lab-panel">
+            <span class="lab-badge">動手實驗台 01</span>
+            <h3 style="margin-bottom: var(--space-xs);">音叉振動與音量模擬器</h3>
+            <p style="font-size: 0.92rem; color: var(--on-surface-variant); margin-bottom: 0;">
+              點選不同敲擊方式，觀察音叉抖動幅度、聲波波紋與旁邊小紙球跳動的變化！
+            </p>
+
+            <div class="lab-stage" style="min-height: 220px;">
+              <svg viewBox="0 0 320 180" width="100%" height="180" aria-hidden="true">
+                <!-- Table surface -->
+                <line x1="20" y1="158" x2="300" y2="158" stroke="var(--outline)" stroke-width="3" stroke-linecap="round"/>
+
+                <!-- Tuning fork group -->
+                <g id="sim-fork-group" class="is-vibrating-low">
+                  <path d="M110 38 v58 c0 16 26 16 26 0 v-58" fill="none" stroke="var(--primary)" stroke-width="6" stroke-linecap="round"/>
+                  <line x1="123" y1="108" x2="123" y2="158" stroke="var(--primary)" stroke-width="7" stroke-linecap="round"/>
+                </g>
+
+                <!-- Sound wave arcs -->
+                <g id="sim-waves-group" class="wave-anim-slow">
+                  <path d="M156 50 q14 20 0 40" fill="none" stroke="var(--secondary)" stroke-width="3" stroke-linecap="round"/>
+                  <path d="M172 40 q20 30 0 60" fill="none" stroke="var(--secondary)" stroke-width="2.5" stroke-linecap="round"/>
+                  <path id="sim-wave-extra" d="M189 28 q28 42 0 84" fill="none" stroke="var(--primary)" stroke-width="2.5" stroke-linecap="round" opacity="0"/>
+                </g>
+
+                <!-- Hanging paper ball reacting to vibration -->
+                <line x1="245" y1="10" x2="245" y2="80" id="sim-string" stroke="var(--outline)" stroke-width="2" stroke-dasharray="3 3"/>
+                <circle id="sim-ball" cx="256" cy="85" r="14" fill="var(--tertiary-container)" stroke="var(--outline)" stroke-width="2.5"/>
+                <text id="sim-status-label" x="160" y="22" text-anchor="middle" font-size="13" font-weight="700" fill="var(--secondary)">輕輕敲：振動幅度小 → 聲音小</text>
+              </svg>
+            </div>
+
+            <div class="lab-controls">
+              <button type="button" class="lab-btn active" id="fork-btn-low" onclick="setForkMode('low')">輕輕敲（振動小）</button>
+              <button type="button" class="lab-btn" id="fork-btn-high" onclick="setForkMode('high')">用力敲（振動大）</button>
+              <button type="button" class="lab-btn" id="fork-btn-stop" onclick="setForkMode('stop')">用手按住（停止）</button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============================================================
+           SECTION 2: 聲音的傳播跑道（介質與溫度）
+           ============================================================ -->
+      <section id="sec-medium" class="study-section">
+        <div class="section-header">
+          <span class="chapter-tag sound">單元 02・傳播篇</span>
+          <h2 class="section-title">聲音的賽跑跑道：<span class="sound-word">固體最快、外太空無聲</span></h2>
+        </div>
+
+        <div class="content-split">
+          <article class="note-card blue-shadow">
+            <h3 class="note-card-title red">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true">
+                <path d="M3 12h4l3-7 4 14 3-7h4"/>
+              </svg>
+              <span>紅筆筆記：介質種類與速度比較</span>
+            </h3>
+            <p>
+              聲音傳播時需要依靠幫忙傳遞振動的物質，稱為「<span class="red-key">介質</span>」。介質粒子排列越緊密（距離越近），聲音傳播的速度就越快！
+            </p>
+
+            <div class="notebook-table-wrap">
+              <table class="notebook-table">
+                <thead>
+                  <tr>
+                    <th>介質種類</th>
+                    <th>粒子排列距離</th>
+                    <th>傳播速度與生活實例</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><strong class="red-key">固體</strong></td>
+                    <td>排列最緊密（最近）</td>
+                    <td><strong>速度最快</strong>：耳朵貼在木桌或門板上能清楚聽見敲擊聲。</td>
+                  </tr>
+                  <tr>
+                    <td><strong class="blue-note">液體</strong></td>
+                    <td>排列密度居中</td>
+                    <td><strong>速度次之</strong>：海豚在水中傳聲；水中芭蕾舞者在水中聽音樂。</td>
+                  </tr>
+                  <tr>
+                    <td><strong>氣體</strong></td>
+                    <td>排列最疏鬆（最遠）</td>
+                    <td><strong>速度最慢</strong>：運動會加油聲、岸邊海浪聲、樂器演奏聲。</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <div class="blue-callout">
+              <div class="blue-callout-label">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true">
+                  <path d="M14 14.76V3.5a2.5 2.5 0 0 0-5 0v11.26a4.5 4.5 0 1 0 5 0z"/>
+                </svg>
+                <span>藍筆解析：溫度、外太空與紙杯傳聲筒</span>
+              </div>
+              <p style="margin-bottom: var(--space-xs);">
+                <strong>1. 溫度越高，傳聲越快：</strong>高溫讓介質傳遞振動更有活力！
+              </p>
+              <p style="margin-bottom: var(--space-xs);">
+                <strong>2. 外太空沒有聲音：</strong>外太空沒有空氣當介質，太空人要靠電子設備通訊。
+              </p>
+              <p style="margin-bottom: 0;">
+                <strong>3. 紙杯傳聲筒（固體傳聲）：</strong>說話讓杯底振動 → 沿著<span class="blue-note">拉直的棉線</span>傳到對方杯底 → 再振動空氣入耳。線拉直能減少能量被吸收與分散！
+              </p>
+            </div>
+          </article>
+
+          <!-- Interactive Lab 2: Sound Medium Speed Race -->
+          <div class="lab-panel">
+            <span class="lab-badge">動手實驗台 02</span>
+            <h3 style="margin-bottom: var(--space-xs);">聲音介質賽跑模擬器</h3>
+            <p style="font-size: 0.92rem; color: var(--on-surface-variant); margin-bottom: 0;">
+              選擇環境溫度後按下「鳴槍起跑」，比較同一時間內聲波在固體、液體、氣體與外太空前進的距離！
+            </p>
+
+            <div class="lab-stage" style="min-height: 220px;">
+              <div class="race-tracks">
+                <div class="race-row">
+                  <span class="race-label">固體（木桌）</span>
+                  <div class="race-bar-track"><div class="race-bar-fill solid" id="race-solid"></div></div>
+                  <span class="race-speed-tag" id="tag-solid">準備中</span>
+                </div>
+                <div class="race-row">
+                  <span class="race-label">液體（水池）</span>
+                  <div class="race-bar-track"><div class="race-bar-fill liquid" id="race-liquid"></div></div>
+                  <span class="race-speed-tag" id="tag-liquid">準備中</span>
+                </div>
+                <div class="race-row">
+                  <span class="race-label">氣體（空氣）</span>
+                  <div class="race-bar-track"><div class="race-bar-fill gas" id="race-gas"></div></div>
+                  <span class="race-speed-tag" id="tag-gas">準備中</span>
+                </div>
+                <div class="race-row">
+                  <span class="race-label">外太空（真空）</span>
+                  <div class="race-bar-track"><div class="race-bar-fill vacuum" id="race-vacuum"></div></div>
+                  <span class="race-speed-tag" id="tag-vacuum">無介質</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="lab-controls" style="justify-content: space-between;">
+              <div class="lab-controls">
+                <button type="button" class="lab-btn blue-active active" id="temp-cold-btn" onclick="setRaceTemp('cold')">冬天低溫 10°C</button>
+                <button type="button" class="lab-btn blue-active" id="temp-hot-btn" onclick="setRaceTemp('hot')">夏天高溫 35°C</button>
+              </div>
+              <button type="button" class="btn btn-primary btn-sm" onclick="startSoundRace()">鳴槍起跑！</button>
+            </div>
+            <p id="race-summary" style="font-size: 0.9rem; margin: var(--space-sm) 0 0; color: var(--secondary); font-weight: 700;">
+              小提示：按下「鳴槍起跑」觀察誰跑第一名！
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============================================================
+           SECTION 3: 光的軌跡（直線前進與影子變化）
+           ============================================================ -->
+      <section id="sec-light" class="study-section">
+        <div class="section-header">
+          <span class="chapter-tag light">單元 03・光線篇</span>
+          <h2 class="section-title">光的固執特性：<span class="light-word">光走直線與神奇影子</span></h2>
+        </div>
+
+        <div class="content-split">
+          <article class="note-card blue-shadow">
+            <h3 class="note-card-title blue">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true">
+                <circle cx="12" cy="12" r="4"/><path d="M12 2v3M12 19v3M4.22 4.22l2.12 2.12M17.66 17.66l2.12 2.12M2 12h3M19 12h3M4.22 19.78l2.12-2.12M17.66 6.34l2.12-2.12"/>
+              </svg>
+              <span>紅筆重點：光源、直線前進與影子</span>
+            </h3>
+            <p>
+              本身會發光的物體叫做「<span class="red-key">光源</span>」（例如太陽、燃燒的蠟燭、發亮的螢幕）。我們能看見世界有兩種情況：① 物體自行發光直接進到眼睛；② 光照到物體再<span class="red-key">反射</span>進到眼睛。
+            </p>
+            <p>
+              不論從任何角度觀察，光總是沿著「<span class="red-circle">直線</span>」前進！像是門縫透出的光、手電筒燈光、雲縫穿透的陽光，都是一條條筆直的光束。
+            </p>
+
+            <div class="red-callout">
+              <div class="red-callout-label">影子為什麼會變大變小？</div>
+              <p style="margin-bottom: 0;">
+                當直線前進的光被不透明物體遮擋時，物體後方會形成影子：<br>
+                ● 物體離光源越<strong class="red-key">近</strong> → 擋住越多光線 → 影子越<strong class="red-key">大</strong>！<br>
+                ● 物體離光源越<strong class="blue-note">遠</strong> → 擋住越少光線 → 影子越<strong class="blue-note">小</strong>！
+              </p>
+            </div>
+
+            <div class="blue-callout">
+              <div class="blue-callout-label">藍筆小百科：看得見與看不見的光</div>
+              <p style="margin-bottom: 0;">
+                光線除了我們眼睛能看見的「可見光」，還有看不見的光，例如：<span class="blue-note">紅外線</span>（遙控器）、<span class="blue-note">紫外線</span>等喔！
+              </p>
+            </div>
+          </article>
+
+          <!-- Interactive Lab 3: Flashlight & Shadow Scale Simulator -->
+          <div class="lab-panel">
+            <span class="lab-badge">動手實驗台 03</span>
+            <h3 style="margin-bottom: var(--space-xs);">手電筒影子大小實驗台</h3>
+            <p style="font-size: 0.92rem; color: var(--on-surface-variant); margin-bottom: 0;">
+              左右拖動滑桿，改變「小積木」與手電筒（光源）的距離，觀察光線如何直線前進並改變影子大小！
+            </p>
+
+            <div class="lab-stage" style="min-height: 220px;">
+              <svg viewBox="0 0 340 185" width="100%" height="185" aria-hidden="true">
+                <!-- Wall / Screen on right -->
+                <rect x="304" y="15" width="12" height="155" rx="4" fill="var(--surface-container-low)" stroke="var(--outline)" stroke-width="2.5"/>
+                <text x="310" y="12" text-anchor="middle" font-size="11" font-weight="700" fill="var(--on-surface-variant)">牆壁</text>
+
+                <!-- Flashlight on left (origin at 48, 95) -->
+                <g transform="translate(14, 77)">
+                  <rect x="0" y="8" width="24" height="20" rx="4" fill="var(--primary)" stroke="var(--outline)" stroke-width="2"/>
+                  <polygon points="24,8 36,2 36,34 24,28" fill="var(--tertiary-container)" stroke="var(--outline)" stroke-width="2"/>
+                </g>
+
+                <!-- Light Cone Rays (dynamically updated by JS) -->
+                <polygon id="shadow-light-cone" points="50,95 304,20 304,170" fill="var(--tertiary-container)" opacity="0.5"/>
+                <line id="ray-top" x1="50" y1="95" x2="304" y2="55" stroke="var(--tertiary)" stroke-width="2" stroke-dasharray="5 4"/>
+                <line id="ray-bottom" x1="50" y1="95" x2="304" y2="135" stroke="var(--tertiary)" stroke-width="2" stroke-dasharray="5 4"/>
+
+                <!-- Shadow on Wall -->
+                <rect id="wall-shadow-bar" x="301" y="55" width="8" height="80" rx="3" fill="var(--outline)"/>
+
+                <!-- Movable Object (Block) -->
+                <g id="shadow-object-group" transform="translate(140, 75)">
+                  <rect x="-12" y="0" width="24" height="40" rx="5" fill="var(--secondary)" stroke="var(--outline)" stroke-width="2.5"/>
+                  <circle cx="0" cy="15" r="3" fill="var(--on-secondary)"/>
+                </g>
+
+                <!-- Measurement readout -->
+                <text id="shadow-readout" x="175" y="176" text-anchor="middle" font-size="12" font-weight="700" fill="var(--primary)">距離適中 → 影子中等大小</text>
+              </svg>
+            </div>
+
+            <div class="range-field">
+              <label for="shadow-distance-slider" class="range-label">
+                <span>移動小積木（離手電筒遠近）</span>
+                <span id="shadow-distance-text" class="blue-note">距離：90 cm（適中）</span>
+              </label>
+              <input type="range" id="shadow-distance-slider" min="85" max="245" value="140" oninput="updateShadowLab(this.value)">
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============================================================
+           SECTION 4: 光的反射與神奇面鏡
+           ============================================================ -->
+      <section id="sec-mirror" class="study-section">
+        <div class="section-header">
+          <span class="chapter-tag light">單元 04・反射與面鏡</span>
+          <h2 class="section-title">光的折返跑：<span class="light-word">鏡面反射、漫射與哈哈鏡</span></h2>
+        </div>
+
+        <div class="content-split">
+          <article class="note-card">
+            <h3 class="note-card-title blue">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true">
+                <path d="M4 18h16M7 18l5-10 5 10"/>
+              </svg>
+              <span>筆記整理：兩種反射 ＆ 三種面鏡</span>
+            </h3>
+            <p>
+              光照射到具有鏡面特徵的物體後會改變方向，稱為「<span class="red-key">反射</span>」。雷射筆實驗告訴我們：改變鏡子角度，反射方向會改變，但<strong class="red-key">反射後的光依然走直線</strong>！
+            </p>
+            <ul class="step-list">
+              <li class="step-item">
+                <span class="step-num" style="background-color: var(--secondary);">鏡</span>
+                <div><strong class="blue-note">鏡面反射（光滑表面）：</strong>不鏽鋼杯、玻璃帷幕、平靜水面 → 光線向特定方向規律反射。</div>
+              </li>
+              <li class="step-item">
+                <span class="step-num" style="background-color: var(--secondary);">漫</span>
+                <div><strong class="red-key">漫射（凹凸不平表面）：</strong>紙張、牆壁等 → 光線向不同角度與方向散射，是最常見的反射方式，讓我們從各個角度都能看到物體！</div>
+              </li>
+            </ul>
+
+            <div class="notebook-table-wrap">
+              <table class="notebook-table">
+                <thead>
+                  <tr>
+                    <th>哈哈鏡種類</th>
+                    <th>視野範圍</th>
+                    <th>照出來的影像特徵</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><strong>平面鏡</strong></td>
+                    <td>正常</td>
+                    <td>跟物體<strong>一樣大小</strong>、清晰正常</td>
+                  </tr>
+                  <tr>
+                    <td><strong class="blue-note">凸面鏡</strong></td>
+                    <td>視野變廣</td>
+                    <td>物體看起來<span class="blue-note">變小、矮胖</span>（常用於路邊反光鏡）</td>
+                  </tr>
+                  <tr>
+                    <td><strong class="red-key">凹面鏡</strong></td>
+                    <td>視野變窄</td>
+                    <td>物體看起來<span class="red-key">變高大、細長</span></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <div class="blue-callout">
+              <div class="blue-callout-label">藍筆補充：兩面鏡子夾角遊戲</div>
+              <p style="margin-bottom: 0;">
+                把物體放在兩面鏡子之間，縮小兩面鏡子的夾角，看到的影像數量就會<strong class="blue-note">變多</strong>喔！
+              </p>
+            </div>
+          </article>
+
+          <!-- Interactive Lab 4: Mirror Angle & Funhouse Mirror Lab -->
+          <div class="lab-panel">
+            <span class="lab-badge">動手實驗台 04</span>
+            <h3 style="margin-bottom: var(--space-xs);">鏡子反射與哈哈鏡觀察箱</h3>
+            <p style="font-size: 0.92rem; color: var(--on-surface-variant); margin-bottom: var(--space-sm);">
+              切換「兩面鏡子夾角」或「哈哈鏡變身」模式，直接看成像變化！
+            </p>
+
+            <div class="lab-controls" style="margin-bottom: var(--space-xs);">
+              <button type="button" class="lab-btn blue-active active" id="mirror-tab-angle" onclick="switchMirrorTab('angle')">兩面鏡子夾角</button>
+              <button type="button" class="lab-btn blue-active" id="mirror-tab-funhouse" onclick="switchMirrorTab('funhouse')">神奇哈哈鏡</button>
+              <button type="button" class="lab-btn blue-active" id="mirror-tab-diffuse" onclick="switchMirrorTab('diffuse')">鏡面 vs 漫射</button>
+            </div>
+
+            <div class="lab-stage" style="min-height: 220px;">
+              <!-- View 1: Two Mirrors Angle -->
+              <div id="mirror-view-angle" style="width: 100%; text-align: center;">
+                <svg viewBox="0 0 300 160" width="100%" height="155" aria-hidden="true">
+                  <g id="two-mirror-visual"></g>
+                </svg>
+                <div class="lab-controls" style="justify-content: center;">
+                  <button type="button" class="lab-btn btn-sm active" id="ang-90" onclick="setMirrorAngle(90)">90° 夾角</button>
+                  <button type="button" class="lab-btn btn-sm" id="ang-60" onclick="setMirrorAngle(60)">60° 夾角</button>
+                  <button type="button" class="lab-btn btn-sm" id="ang-45" onclick="setMirrorAngle(45)">45° 夾角</button>
+                </div>
+              </div>
+
+              <!-- View 2: Funhouse Mirror -->
+              <div id="mirror-view-funhouse" style="width: 100%; text-align: center; display: none;">
+                <svg viewBox="0 0 300 160" width="100%" height="155" aria-hidden="true">
+                  <!-- Mirror frame -->
+                  <rect x="85" y="10" width="130" height="125" rx="16" fill="var(--secondary-container)" stroke="var(--outline)" stroke-width="3"/>
+                  <!-- Cartoon Character -->
+                  <g id="funhouse-character" transform="translate(150, 78) scale(1, 1)">
+                    <circle cx="0" cy="-24" r="16" fill="var(--tertiary-container)" stroke="var(--outline)" stroke-width="2.5"/>
+                    <circle cx="-5" cy="-26" r="2.2" fill="var(--outline)"/>
+                    <circle cx="5" cy="-26" r="2.2" fill="var(--outline)"/>
+                    <path d="M-5 -19 q5 5 10 0" fill="none" stroke="var(--primary)" stroke-width="2.2" stroke-linecap="round"/>
+                    <rect x="-14" y="-6" width="28" height="32" rx="8" fill="var(--primary-container)" stroke="var(--outline)" stroke-width="2.5"/>
+                    <line x1="-14" y1="6" x2="-24" y2="18" stroke="var(--outline)" stroke-width="3" stroke-linecap="round"/>
+                    <line x1="14" y1="6" x2="24" y2="18" stroke="var(--outline)" stroke-width="3" stroke-linecap="round"/>
+                  </g>
+                  <text id="funhouse-label" x="150" y="152" text-anchor="middle" font-size="12" font-weight="700" fill="var(--on-surface)">平面鏡：跟原本一樣大小、清晰正常</text>
+                </svg>
+                <div class="lab-controls" style="justify-content: center;">
+                  <button type="button" class="lab-btn btn-sm active" id="fh-plane" onclick="setFunhouse('plane')">平面鏡</button>
+                  <button type="button" class="lab-btn btn-sm" id="fh-convex" onclick="setFunhouse('convex')">凸面鏡</button>
+                  <button type="button" class="lab-btn btn-sm" id="fh-concave" onclick="setFunhouse('concave')">凹面鏡</button>
+                </div>
+              </div>
+
+              <!-- View 3: Specular vs Diffuse -->
+              <div id="mirror-view-diffuse" style="width: 100%; text-align: center; display: none;">
+                <svg viewBox="0 0 300 155" width="100%" height="150" aria-hidden="true">
+                  <g id="reflection-type-visual"></g>
+                </svg>
+                <div class="lab-controls" style="justify-content: center;">
+                  <button type="button" class="lab-btn btn-sm active" id="ref-specular" onclick="setReflectionMode('specular')">光滑鏡面反射</button>
+                  <button type="button" class="lab-btn btn-sm" id="ref-diffuse" onclick="setReflectionMode('diffuse')">凹凸表面漫射</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============================================================
+           SECTION 5: 聲與光的生活大應用
+           ============================================================ -->
+      <section id="sec-apply" class="study-section">
+        <div class="section-header">
+          <span class="chapter-tag apply">單元 05・生活應用</span>
+          <h2 class="section-title">生活中的聲與光：警示、安全與藝術娛樂</h2>
+        </div>
+
+        <div class="card-grid">
+          <article class="doodle-mini-card">
+            <svg width="46" height="46" viewBox="0 0 48 48" fill="none" aria-hidden="true">
+              <rect x="14" y="6" width="20" height="36" rx="10" fill="var(--surface-container)" stroke="var(--outline)" stroke-width="2.5"/>
+              <circle cx="24" cy="15" r="4.5" fill="var(--primary)"/>
+              <circle cx="24" cy="24" r="4.5" fill="var(--tertiary)"/>
+              <circle cx="24" cy="33" r="4.5" fill="var(--positive)"/>
+            </svg>
+            <h3 style="font-size: 1.15rem; color: var(--secondary);">光的警示與反射安全</h3>
+            <p style="font-size: 0.95rem; margin: 0;">
+              ● <strong class="blue-note">警示指示：</strong>燈塔、路燈、救護車／警車警示燈、行人紅綠燈號誌。<br>
+              ● <strong class="red-key">鏡面反射應用：</strong>路邊反光鏡（轉彎死角）、汽車後視鏡、道路反光桿、腳踏車反光板。
+            </p>
+          </article>
+
+          <article class="doodle-mini-card">
+            <svg width="46" height="46" viewBox="0 0 48 48" fill="none" aria-hidden="true">
+              <path d="M10 28 h8 l12 10 V10 L18 20 h-8 z" fill="var(--primary-container)" stroke="var(--primary)" stroke-width="2.5" stroke-linejoin="round"/>
+              <path d="M35 17 q6 7 0 14 M40 12 q9 12 0 24" stroke="var(--primary)" stroke-width="2.5" stroke-linecap="round"/>
+            </svg>
+            <h3 style="font-size: 1.15rem; color: var(--primary);">聲音的警示與提醒</h3>
+            <p style="font-size: 0.95rem; margin: 0;">
+              ● <strong class="red-key">交通提醒：</strong>汽車喇叭、腳踏車車鈴。<br>
+              ● <strong class="red-key">居家安全：</strong>一氧化碳偵測警報器，在危險發生時發出響亮聲音保護大家！
+            </p>
+          </article>
+
+          <article class="doodle-mini-card">
+            <svg width="46" height="46" viewBox="0 0 48 48" fill="none" aria-hidden="true">
+              <path d="M24 6 c-8 0-14 6-14 14 c0 8 8 14 10 18 h8 c2-4 10-10 10-18 c0-8-6-14-14-14z" fill="var(--tertiary-container)" stroke="var(--outline)" stroke-width="2.5"/>
+              <path d="M19 42 h10" stroke="var(--outline)" stroke-width="2.5" stroke-linecap="round"/>
+              <path d="M16 18 q8-6 16 0" stroke="var(--primary)" stroke-width="2.2" fill="none"/>
+            </svg>
+            <h3 style="font-size: 1.15rem;">裝飾娛樂與科學玩具</h3>
+            <p style="font-size: 0.95rem; margin: 0;">
+              ● <strong>熱氣球光雕音樂會</strong>、聖誕節慶燈飾。<br>
+              ● <strong>聲光玩具、玩具樂器</strong>，以及結合固體傳聲的「紙杯傳聲筒」與「兩面鏡子萬花筒」！
+            </p>
+          </article>
+        </div>
+      </section>
+
+      <!-- ============================================================
+           SECTION 6: 互動心智圖填充遊戲（MIND MAP FILL-IN-THE-BLANK）
+           ============================================================ -->
+      <section id="sec-mindmap" class="mindmap-section" aria-label="互動心智圖填充遊戲">
+        <div class="section-header" style="margin-bottom: var(--space-md);">
+          <span class="chapter-tag apply">終極挑戰・互動心智圖</span>
+          <h2 class="section-title">聲與光重點心智圖：<span class="sound-word">拖曳</span>或<span class="light-word">點選</span>填空遊戲</h2>
+        </div>
+        <p style="margin-bottom: var(--space-md);">
+          玩法超簡單：從下方的「<strong>筆記詞彙貼紙區</strong>」拖曳詞彙到心智圖的空格中；也可以<strong>先點選詞彙貼紙，再點選想填入的空格</strong>！遇到不會的空格，可以按「藍筆提示」求救喔！
+        </p>
+
+        <!-- HUD Scoreboard -->
+        <div class="game-hud">
+          <div class="hud-stat">
+            <span class="hud-label">已完成節點</span>
+            <span class="hud-value green" id="hud-solved">0 / 12</span>
+          </div>
+          <div class="hud-stat">
+            <span class="hud-label">目前積分</span>
+            <span class="hud-value red" id="hud-score">0 分</span>
+          </div>
+          <div class="hud-stat">
+            <span class="hud-label">連續答對</span>
+            <span class="hud-value blue" id="hud-streak">0 連勝</span>
+          </div>
+          <div class="hud-stat">
+            <span class="hud-label">探險稱號</span>
+            <span class="hud-value" id="hud-rank">聲光實習生</span>
+          </div>
+        </div>
+
+        <!-- Filter & Reset Controls -->
+        <div class="game-controls-bar">
+          <div class="filter-pills" role="group" aria-label="篩選心智圖分支">
+            <button type="button" class="lab-btn active" id="filter-all" onclick="setMindMapFilter('all')">全部 12 題</button>
+            <button type="button" class="lab-btn" id="filter-sound" onclick="setMindMapFilter('sound')">只看聲音篇 (6題)</button>
+            <button type="button" class="lab-btn" id="filter-light" onclick="setMindMapFilter('light')">只看光線篇 (6題)</button>
+          </div>
+          <button type="button" class="btn btn-outline btn-sm" id="reset-game-btn" onclick="resetMindMapGame(this)">重新開始遊戲</button>
+        </div>
+
+        <!-- Draggable / Tap-to-Select Word Bank -->
+        <div class="word-bank-panel">
+          <div class="word-bank-title">
+            <span>筆記詞彙貼紙區（拖曳或點擊選擇）</span>
+            <span id="selected-chip-indicator" class="blue-note" style="font-size: 0.875rem;">尚未選擇貼紙</span>
+          </div>
+          <div class="word-chips-grid" id="word-bank-grid"></div>
+        </div>
+
+        <!-- Instant Feedback, Hint & Blue Pen Explanation Board -->
+        <div class="feedback-board" id="feedback-board" role="status" aria-live="polite">
+          <div class="feedback-text">
+            <div class="feedback-heading" id="feedback-title">準備好開始填空了嗎？</div>
+            <div id="feedback-body" style="font-size: 0.95rem;">
+              點選任意一個空格或把貼紙拖進去，這裡會立刻出現批改結果與藍筆筆記解析！
+            </div>
+          </div>
+        </div>
+
+        <!-- THE INTERACTIVE MIND MAP -->
+        <div class="mindmap-canvas" id="mindmap-canvas">
+          <svg class="mindmap-svg-layer" id="mindmap-svg-layer" aria-hidden="true"></svg>
+
+          <!-- Left Branch: Sound -->
+          <div class="branch-column" id="branch-sound">
+            <div class="branch-group-label sound">紅筆主幹：聲音的秘密（6題）</div>
+            <div id="sound-nodes-list" style="display: grid; gap: var(--space-md);"></div>
+          </div>
+
+          <!-- Center Hub -->
+          <div class="mindmap-center-hub" id="mindmap-hub">
+            <svg width="44" height="44" viewBox="0 0 48 48" fill="none" aria-hidden="true">
+              <circle cx="24" cy="24" r="20" fill="var(--surface-container-low)" stroke="var(--outline)" stroke-width="2.5"/>
+              <path d="M16 14v12a4 4 0 0 0 8 0V14" stroke="var(--primary)" stroke-width="2.8" stroke-linecap="round"/>
+              <circle cx="31" cy="22" r="5" fill="var(--tertiary)" stroke="var(--outline)" stroke-width="2"/>
+            </svg>
+            <div class="mindmap-center-title">有趣的<br>聲光現象</div>
+            <div style="font-size: 0.82rem; color: var(--on-surface-variant); font-weight: 700;">
+              康軒自然 四上<br>核心概念總整理
+            </div>
+          </div>
+
+          <!-- Right Branch: Light -->
+          <div class="branch-column" id="branch-light">
+            <div class="branch-group-label light">藍筆主幹：光線與面鏡（6題）</div>
+            <div id="light-nodes-list" style="display: grid; gap: var(--space-md);"></div>
+          </div>
+        </div>
+      </section>
+
+      <footer class="notebook-footer">
+        <div>
+          <strong>資料依據：</strong>國小四年級康軒自然第三課「有趣的聲光現象」課程圖解與「有趣的聲與光大探險」學習指南整理。
+        </div>
+        <div>
+          <span class="blue-note">學習進度會自動儲存</span>，歡迎隨時回來複習！
+        </div>
+      </footer>
+    </main>
+  </div>
+
+  <api-shim></api-shim>
+  <script>
+    /* ============================================================
+       DATA: 12 Mind Map Fill-in-the-Blank Nodes
+       ============================================================ */
+    const MIND_MAP_NODES = [
+      {
+        id: 'node-1',
+        branch: 'sound',
+        tag: `聲音產生`,
+        prefix: `物體發出聲音的共同秘密是因為發生了`,
+        suffix: `，停止時聲音也停止。`,
+        answer: `振動`,
+        hint: `摸摸看說話時的喉嚨，或是剛敲完的音叉，會有抖動麻麻的感覺喔！`,
+        explanation: `所有聲音都是由物體「振動」產生的；停止振動，聲音就會立刻停止。`
+      },
+      {
+        id: 'node-2',
+        branch: 'sound',
+        tag: `聲音大小`,
+        prefix: `敲擊力道越大，物體的振動幅度越`,
+        suffix: `，發出的聲音也就越大。`,
+        answer: `大`,
+        hint: `想像用力拍打鼓面時，鼓面上的小紙屑會跳得多高？`,
+        explanation: `物體振動幅度大 → 聲音大；振動幅度小 → 聲音小。`
+      },
+      {
+        id: 'node-3',
+        branch: 'sound',
+        tag: `傳播物質`,
+        prefix: `聲音傳播需要依靠幫忙傳遞振動的物質，我們稱為`,
+        suffix: `。`,
+        answer: `介質`,
+        hint: `就像聲音賽跑需要的「跑道」，外太空就是因為沒有它才聽不見聲音！`,
+        explanation: `幫忙傳遞聲音振動的物質叫做「介質」，包含固體、液體與氣體。`
+      },
+      {
+        id: 'node-4',
+        branch: 'sound',
+        tag: `傳聲速度`,
+        prefix: `在三種介質中，粒子排列最緊密、傳播聲音最快的是`,
+        suffix: `。`,
+        answer: `固體`,
+        hint: `把耳朵貼在木頭桌面上聽敲擊聲，是不是比在空氣中聽更清楚快速？`,
+        explanation: `傳聲速度比較：固體（最緊密、最快）＞ 液體（次之）＞ 氣體（最疏鬆、最慢）。`
+      },
+      {
+        id: 'node-5',
+        branch: 'sound',
+        tag: `溫度影響`,
+        prefix: `在同一種介質中，環境溫度越`,
+        suffix: `，聲音傳播的速度就越快。`,
+        answer: `高`,
+        hint: `夏天的熱空氣跟冬天的冷空氣，哪一個讓聲音跑得比較快呢？`,
+        explanation: `溫度也是影響聲速的關鍵：溫度越高，聲音傳播速度越快！`
+      },
+      {
+        id: 'node-6',
+        branch: 'sound',
+        tag: `紙杯傳聲筒`,
+        prefix: `玩紙杯傳聲筒時，把棉線`,
+        suffix: `能讓振動高效直線傳遞，聲音更清晰。`,
+        answer: `拉直`,
+        hint: `如果棉線鬆垮垮地垂下來，聲音的能量就會被分散掉喔！`,
+        explanation: `棉線拉直時，聲波振動能沿著固體棉線高效以直線傳播，減少能量吸收與分散。`
+      },
+      {
+        id: 'node-7',
+        branch: 'light',
+        tag: `光的特性`,
+        prefix: `不論任何角度，光在傳播時有一個固執的特性，就是會沿著`,
+        suffix: `前進。`,
+        answer: `直線`,
+        hint: `看看門縫透出的光線、手電筒燈光或穿透雲縫的陽光，是不是都筆直的呢？`,
+        explanation: `光都是沿著「直線」前進的，遇到不透明物體就會被遮擋形成影子。`
+      },
+      {
+        id: 'node-8',
+        branch: 'light',
+        tag: `影子變化`,
+        prefix: `物體與光源的距離越`,
+        suffix: `，擋住的光線越多，後方影子就越大。`,
+        answer: `近`,
+        hint: `試著在實驗室把小積木往手電筒靠近看看！`,
+        explanation: `物體與光的距離越近 → 影子越大；距離越遠 → 影子越小。`
+      },
+      {
+        id: 'node-9',
+        branch: 'light',
+        tag: `光的反射`,
+        prefix: `光照射到鏡面特徵物體後改變原本方向，且依然走直線，稱為`,
+        suffix: `。`,
+        answer: `反射`,
+        hint: `用雷射筆照鏡子時，光線就像球撞到牆面彈開一樣！`,
+        explanation: `光照射到鏡面物體會改變方向（反射），我們能看見不發光物體也是靠光反射進眼睛。`
+      },
+      {
+        id: 'node-10',
+        branch: 'light',
+        tag: `凹凸表面`,
+        prefix: `光照到凹凸不平表面會向不同方向散開，這種常見現象稱為`,
+        suffix: `。`,
+        answer: `漫射`,
+        hint: `這也是為什麼我們站在教室不同角度，都能看見黑板和同學的原因！`,
+        explanation: `光滑表面產生規律反射；凹凸不平表面產生不同角度的「漫射」，是最常見的反射。`
+      },
+      {
+        id: 'node-11',
+        branch: 'light',
+        tag: `兩面鏡子`,
+        prefix: `把物體放在兩面鏡子的夾角之間，兩鏡的夾角越`,
+        suffix: `，影像數量越多。`,
+        answer: `小`,
+        hint: `把兩面鏡子慢慢合攏（角度變窄），鏡子裡會出現更多分身喔！`,
+        explanation: `縮小兩面鏡子的夾角，光在鏡面間反射次數變多，看到的影像數量就會變多。`
+      },
+      {
+        id: 'node-12',
+        branch: 'light',
+        tag: `神奇哈哈鏡`,
+        prefix: `遊樂園哈哈鏡中，視野變窄但讓物體看起來變高大細長的是`,
+        suffix: `。`,
+        answer: `凹面鏡`,
+        hint: `平面鏡一樣大；凸面鏡視野廣人變矮胖；那往內凹的是哪一種鏡子？`,
+        explanation: `凹面鏡影像範圍變窄、使物體看起來變高大細長；凸面鏡則視野變廣、人變小矮胖。`
+      }
+    ];
+
+    /* Shuffled chip order so students think instead of clicking straight down */
+    const WORD_BANK_ORDER = [
+      `直線`, `介質`, `凹面鏡`, `大`, `拉直`, `反射`,
+      `振動`, `近`, `固體`, `漫射`, `高`, `小`
+    ];
+
+    /* ============================================================
+       APP STATE (Persisted via window.notebookAppApi)
+       ============================================================ */
+    const appState = {
+      solvedNodes: {},
+      score: 0,
+      streak: 0,
+      audioEnabled: true,
+      filter: 'all',
+      forkMode: 'low',
+      raceTemp: 'cold',
+      shadowX: 140,
+      mirrorAngle: 90,
+      funhouseType: 'plane',
+      reflectionMode: 'specular'
+    };
+
+    let selectedChipWord = null;
+    let activeNodeId = null;
+    let audioCtx = null;
+
+    /* ============================================================
+       WEB AUDIO SYNTHESIS (Gentle, Educational Feedback Tones)
+       ============================================================ */
+    function playTone(freq, durationSec, type) {
+      if (!appState.audioEnabled) return;
+      try {
+        const AudioContextClass = window.AudioContext || window.webkitAudioContext;
+        if (!AudioContextClass) return;
+        if (!audioCtx) audioCtx = new AudioContextClass();
+        if (audioCtx.state === 'suspended') audioCtx.resume();
+        const osc = audioCtx.createOscillator();
+        const gain = audioCtx.createGain();
+        osc.type = type || 'sine';
+        osc.frequency.setValueAtTime(freq, audioCtx.currentTime);
+        gain.gain.setValueAtTime(0.08, audioCtx.currentTime);
+        gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + durationSec);
+        osc.connect(gain);
+        gain.connect(audioCtx.destination);
+        osc.start();
+        osc.stop(audioCtx.currentTime + durationSec);
+      } catch (err) {
+        /* Ignore audio errors if blocked */
+      }
+    }
+
+    function toggleAudioEffect() {
+      appState.audioEnabled = !appState.audioEnabled;
+      const btn = document.getElementById('sound-toggle-btn');
+      if (btn) {
+        btn.textContent = appState.audioEnabled ? `音效：開啟` : `音效：靜音`;
+      }
+      if (appState.audioEnabled) playTone(523.25, 0.14, 'triangle');
+      saveAppStateSafe();
+    }
+
+    /* ============================================================
+       PERSISTENCE HELPERS (notebookAppApi)
+       ============================================================ */
+    async function saveAppStateSafe() {
+      try {
+        if (window.notebookAppApi && typeof window.notebookAppApi.setAppState === 'function') {
+          await window.notebookAppApi.setAppState(appState);
+        }
+      } catch (err) {
+        /* Safe fallback if shim unavailable */
+      }
+    }
+
+    /* ============================================================
+       LAB 1: TUNING FORK VIBRATION SIMULATOR
+       ============================================================ */
+    function setForkMode(mode) {
+      appState.forkMode = mode;
+      const forkGroup = document.getElementById('sim-fork-group');
+      const wavesGroup = document.getElementById('sim-waves-group');
+      const waveExtra = document.getElementById('sim-wave-extra');
+      const ball = document.getElementById('sim-ball');
+      const label = document.getElementById('sim-status-label');
+
+      const btnLow = document.getElementById('fork-btn-low');
+      const btnHigh = document.getElementById('fork-btn-high');
+      const btnStop = document.getElementById('fork-btn-stop');
+      [btnLow, btnHigh, btnStop].forEach(function (b) {
+        if (b) b.classList.remove('active');
+      });
+
+      if (forkGroup) forkGroup.classList.remove('is-vibrating-low', 'is-vibrating-high');
+      if (wavesGroup) wavesGroup.classList.remove('wave-anim-slow', 'wave-anim-fast');
+
+      if (mode === 'low') {
+        if (btnLow) btnLow.classList.add('active');
+        if (forkGroup) forkGroup.classList.add('is-vibrating-low');
+        if (wavesGroup) {
+          wavesGroup.style.opacity = '1';
+          wavesGroup.classList.add('wave-anim-slow');
+        }
+        if (waveExtra) waveExtra.setAttribute('opacity', '0');
+        if (ball) ball.setAttribute('cx', '258');
+        if (label) label.textContent = `輕輕敲：振動幅度小 → 聲音小`;
+        playTone(392, 0.25, 'sine');
+      } else if (mode === 'high') {
+        if (btnHigh) btnHigh.classList.add('active');
+        if (forkGroup) forkGroup.classList.add('is-vibrating-high');
+        if (wavesGroup) {
+          wavesGroup.style.opacity = '1';
+          wavesGroup.classList.add('wave-anim-fast');
+        }
+        if (waveExtra) waveExtra.setAttribute('opacity', '1');
+        if (ball) ball.setAttribute('cx', '286');
+        if (label) label.textContent = `用力敲：振動幅度大 → 聲音大！`;
+        playTone(440, 0.45, 'triangle');
+      } else {
+        if (btnStop) btnStop.classList.add('active');
+        if (wavesGroup) wavesGroup.style.opacity = '0';
+        if (waveExtra) waveExtra.setAttribute('opacity', '0');
+        if (ball) ball.setAttribute('cx', '245');
+        if (label) label.textContent = `用手按住：停止振動 → 聲音停止`;
+      }
+      saveAppStateSafe();
+    }
+
+    /* ============================================================
+       LAB 2: SOUND MEDIUM SPEED RACE
+       ============================================================ */
+    function setRaceTemp(temp) {
+      appState.raceTemp = temp;
+      const coldBtn = document.getElementById('temp-cold-btn');
+      const hotBtn = document.getElementById('temp-hot-btn');
+      if (coldBtn) coldBtn.classList.toggle('active', temp === 'cold');
+      if (hotBtn) hotBtn.classList.toggle('active', temp === 'hot');
+      saveAppStateSafe();
+    }
+
+    function startSoundRace() {
+      const solid = document.getElementById('race-solid');
+      const liquid = document.getElementById('race-liquid');
+      const gas = document.getElementById('race-gas');
+      const vacuum = document.getElementById('race-vacuum');
+      const tagSolid = document.getElementById('tag-solid');
+      const tagLiquid = document.getElementById('tag-liquid');
+      const tagGas = document.getElementById('tag-gas');
+      const tagVacuum = document.getElementById('tag-vacuum');
+      const summary = document.getElementById('race-summary');
+
+      [solid, liquid, gas, vacuum].forEach(function (bar) {
+        if (bar) bar.style.width = '0%';
+      });
+
+      const isHot = appState.raceTemp === 'hot';
+      setTimeout(function () {
+        if (solid) solid.style.width = isHot ? '100%' : '92%';
+        if (liquid) liquid.style.width = isHot ? '68%' : '60%';
+        if (gas) gas.style.width = isHot ? '36%' : '26%';
+        if (vacuum) vacuum.style.width = '0%';
+
+        if (tagSolid) tagSolid.textContent = `第 1 名！`;
+        if (tagLiquid) tagLiquid.textContent = `第 2 名`;
+        if (tagGas) tagGas.textContent = `第 3 名`;
+        if (tagVacuum) tagVacuum.textContent = `無法傳聲`;
+
+        if (summary) {
+          summary.textContent = isHot
+            ? `高溫 35°C 下聲波更快！速度永遠是：固體 ＞ 液體 ＞ 氣體，外太空無介質！`
+            : `低溫 10°C 下速度稍慢一些，但順序仍是：固體 ＞ 液體 ＞ 氣體！`;
+        }
+      }, 60);
+
+      playTone(587.33, 0.16, 'sine');
+    }
+
+    /* ============================================================
+       LAB 3: FLASHLIGHT SHADOW SCALE SIMULATOR
+       ============================================================ */
+    function updateShadowLab(rawX) {
+      const x = Number(rawX);
+      appState.shadowX = x;
+      const objGroup = document.getElementById('shadow-object-group');
+      const cone = document.getElementById('shadow-light-cone');
+      const rayTop = document.getElementById('ray-top');
+      const rayBottom = document.getElementById('ray-bottom');
+      const shadowBar = document.getElementById('wall-shadow-bar');
+      const distText = document.getElementById('shadow-distance-text');
+      const readout = document.getElementById('shadow-readout');
+
+      if (objGroup) objGroup.setAttribute('transform', 'translate(' + x + ', 75)');
+
+      /* Ray geometry from flashlight (50, 95) through object top (x, 75) & bottom (x, 115) to wall (304) */
+      const dxObj = Math.max(25, x - 50);
+      const dxWall = 304 - 50;
+      const halfObj = 20;
+      const halfShadow = Math.min(82, (halfObj * dxWall) / dxObj);
+      const topY = Math.round(95 - halfShadow);
+      const botY = Math.round(95 + halfShadow);
+
+      if (cone) cone.setAttribute('points', '50,95 304,' + topY + ' 304,' + botY);
+      if (rayTop) rayTop.setAttribute('y2', String(topY));
+      if (rayBottom) rayBottom.setAttribute('y2', String(botY));
+      if (shadowBar) {
+        shadowBar.setAttribute('y', String(topY));
+        shadowBar.setAttribute('height', String(botY - topY));
+      }
+
+      const cm = Math.round((x - 55) * 1.1);
+      if (x < 120) {
+        if (distText) distText.textContent = `距離：${cm} cm（靠近光源）`;
+        if (readout) readout.textContent = `離光源越近 → 影子變超大！`;
+      } else if (x > 195) {
+        if (distText) distText.textContent = `距離：${cm} cm（遠離光源）`;
+        if (readout) readout.textContent = `離光源越遠 → 影子變小了！`;
+      } else {
+        if (distText) distText.textContent = `距離：${cm} cm（距離適中）`;
+        if (readout) readout.textContent = `距離適中 → 影子中等大小`;
+      }
+      saveAppStateSafe();
+    }
+
+    /* ============================================================
+       LAB 4: MIRRORS & REFLECTION LAB
+       ============================================================ */
+    function switchMirrorTab(tab) {
+      const views = {
+        angle: document.getElementById('mirror-view-angle'),
+        funhouse: document.getElementById('mirror-view-funhouse'),
+        diffuse: document.getElementById('mirror-view-diffuse')
+      };
+      const btns = {
+        angle: document.getElementById('mirror-tab-angle'),
+        funhouse: document.getElementById('mirror-tab-funhouse'),
+        diffuse: document.getElementById('mirror-tab-diffuse')
+      };
+      Object.keys(views).forEach(function (k) {
+        if (views[k]) views[k].style.display = (k === tab) ? 'block' : 'none';
+        if (btns[k]) btns[k].classList.toggle('active', k === tab);
+      });
+    }
+
+    function setMirrorAngle(deg) {
+      appState.mirrorAngle = deg;
+      [90, 60, 45].forEach(function (d) {
+        const b = document.getElementById('ang-' + d);
+        if (b) b.classList.toggle('active', d === deg);
+      });
+      const container = document.getElementById('two-mirror-visual');
+      if (!container) return;
+
+      const count = Math.round(360 / deg) - 1;
+      const rad = (deg * Math.PI) / 180;
+      const arm = 95;
+      const x1 = 150 - Math.sin(rad / 2) * arm;
+      const y1 = 122 - Math.cos(rad / 2) * arm;
+      const x2 = 150 + Math.sin(rad / 2) * arm;
+      const y2 = 122 - Math.cos(rad / 2) * arm;
+
+      let dotsHtml = '';
+      for (let i = 0; i < count; i++) {
+        const angOffset = ((i + 1) / (count + 1)) * Math.PI * 1.4 - Math.PI * 0.7;
+        const dx = Math.round(150 + Math.sin(angOffset) * 44);
+        const dy = Math.round(70 - Math.cos(angOffset) * 28);
+        dotsHtml += `<circle cx="${dx}" cy="${dy}" r="7" fill="var(--secondary-container)" stroke="var(--secondary)" stroke-width="2"/>`;
+      }
+
+      container.innerHTML = `
+        <line x1="150" y1="122" x2="${Math.round(x1)}" y2="${Math.round(y1)}" stroke="var(--outline)" stroke-width="5" stroke-linecap="round"/>
+        <line x1="150" y1="122" x2="${Math.round(x2)}" y2="${Math.round(y2)}" stroke="var(--outline)" stroke-width="5" stroke-linecap="round"/>
+        <circle cx="150" cy="82" r="10" fill="var(--primary)" stroke="var(--outline)" stroke-width="2"/>
+        ${dotsHtml}
+        <text x="150" y="148" text-anchor="middle" font-size="13" font-weight="700" fill="var(--secondary)">夾角 ${deg}° → 可看見 ${count} 個反射影像（夾角越小越多！）</text>
+      `;
+      saveAppStateSafe();
+    }
+
+    function setFunhouse(type) {
+      appState.funhouseType = type;
+      ['plane', 'convex', 'concave'].forEach(function (t) {
+        const b = document.getElementById('fh-' + t);
+        if (b) b.classList.toggle('active', t === type);
+      });
+      const charEl = document.getElementById('funhouse-character');
+      const labelEl = document.getElementById('funhouse-label');
+      if (type === 'plane') {
+        if (charEl) charEl.setAttribute('transform', 'translate(150, 78) scale(1, 1)');
+        if (labelEl) labelEl.textContent = `平面鏡：跟原本一樣大小、清晰正常`;
+      } else if (type === 'convex') {
+        if (charEl) charEl.setAttribute('transform', 'translate(150, 82) scale(1.28, 0.72)');
+        if (labelEl) labelEl.textContent = `凸面鏡：視野變廣，看起來變小、矮胖！`;
+      } else {
+        if (charEl) charEl.setAttribute('transform', 'translate(150, 74) scale(0.75, 1.32)');
+        if (labelEl) labelEl.textContent = `凹面鏡：視野變窄，看起來變高大、細長！`;
+      }
+      saveAppStateSafe();
+    }
+
+    function setReflectionMode(mode) {
+      appState.reflectionMode = mode;
+      const specBtn = document.getElementById('ref-specular');
+      const diffBtn = document.getElementById('ref-diffuse');
+      if (specBtn) specBtn.classList.toggle('active', mode === 'specular');
+      if (diffBtn) diffBtn.classList.toggle('active', mode === 'diffuse');
+
+      const container = document.getElementById('reflection-type-visual');
+      if (!container) return;
+
+      if (mode === 'specular') {
+        container.innerHTML = `
+          <line x1="35" y1="115" x2="265" y2="115" stroke="var(--outline)" stroke-width="5" stroke-linecap="round"/>
+          <path d="M55 30 L105 115 L155 30" fill="none" stroke="var(--primary)" stroke-width="2.6" stroke-linecap="round"/>
+          <path d="M100 30 L150 115 L200 30" fill="none" stroke="var(--primary)" stroke-width="2.6" stroke-linecap="round"/>
+          <path d="M145 30 L195 115 L245 30" fill="none" stroke="var(--primary)" stroke-width="2.6" stroke-linecap="round"/>
+          <text x="150" y="142" text-anchor="middle" font-size="13" font-weight="700" fill="var(--secondary)">光滑鏡面：光線向特定方向「規律反射」</text>
+        `;
+      } else {
+        container.innerHTML = `
+          <path d="M35 115 L60 105 L85 118 L112 103 L140 116 L170 104 L198 118 L225 106 L265 115" fill="none" stroke="var(--outline)" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M60 28 L95 112 L62 48" fill="none" stroke="var(--primary)" stroke-width="2.6" stroke-linecap="round"/>
+          <path d="M115 28 L150 110 L215 45" fill="none" stroke="var(--primary)" stroke-width="2.6" stroke-linecap="round"/>
+          <path d="M170 28 L204 114 L256 75" fill="none" stroke="var(--primary)" stroke-width="2.6" stroke-linecap="round"/>
+          <text x="150" y="142" text-anchor="middle" font-size="13" font-weight="700" fill="var(--primary)">凹凸表面：光線向四面八方反射（「漫射」）</text>
+        `;
+      }
+      saveAppStateSafe();
+    }
+
+    /* ============================================================
+       MIND MAP GAME RENDERING & INTERACTIONS
+       ============================================================ */
+    function renderWordBank() {
+      const grid = document.getElementById('word-bank-grid');
+      if (!grid) return;
+      grid.innerHTML = '';
+
+      const usedWords = new Set(Object.values(appState.solvedNodes));
+
+      WORD_BANK_ORDER.forEach(function (word) {
+        const btn = document.createElement('button');
+        btn.type = 'button';
+        btn.className = 'word-chip';
+        btn.textContent = word;
+        const isUsed = usedWords.has(word);
+
+        if (isUsed) {
+          btn.classList.add('used-chip');
+          btn.disabled = true;
+          btn.setAttribute('aria-disabled', 'true');
+        } else {
+          btn.draggable = true;
+          if (selectedChipWord === word) {
+            btn.classList.add('selected-chip');
+          }
+          btn.addEventListener('click', function () {
+            selectWordChip(word);
+          });
+          btn.addEventListener('dragstart', function (e) {
+            selectedChipWord = word;
+            if (e.dataTransfer) {
+              e.dataTransfer.setData('text/plain', word);
+              e.dataTransfer.effectAllowed = 'move';
+            }
+            updateSelectedChipLabel();
+          });
+        }
+        grid.appendChild(btn);
+      });
+      updateSelectedChipLabel();
+    }
+
+    function updateSelectedChipLabel() {
+      const label = document.getElementById('selected-chip-indicator');
+      if (!label) return;
+      if (selectedChipWord) {
+        label.textContent = `已拿取貼紙：【${selectedChipWord}】→ 請點選心智圖空格放入`;
+      } else {
+        label.textContent = `尚未選擇貼紙（點一下詞彙，或直接拖曳）`;
+      }
+    }
+
+    function selectWordChip(word) {
+      if (selectedChipWord === word) {
+        selectedChipWord = null;
+      } else {
+        selectedChipWord = word;
+        playTone(493.88, 0.08, 'sine');
+      }
+      renderWordBank();
+      if (selectedChipWord && activeNodeId && !appState.solvedNodes[activeNodeId]) {
+        attemptFillNode(activeNodeId, selectedChipWord);
+      }
+    }
+
+    function renderMindMapNodes() {
+      const soundList = document.getElementById('sound-nodes-list');
+      const lightList = document.getElementById('light-nodes-list');
+      if (!soundList || !lightList) return;
+
+      soundList.innerHTML = '';
+      lightList.innerHTML = '';
+
+      MIND_MAP_NODES.forEach(function (node) {
+        const isSolved = Boolean(appState.solvedNodes[node.id]);
+        const card = document.createElement('div');
+        card.id = node.id;
+        card.className = 'mm-node ' + (node.branch === 'sound' ? 'sound-node' : 'light-node');
+
+        if (isSolved) card.classList.add('is-solved');
+        if (activeNodeId === node.id) card.classList.add('is-active-node');
+        if (appState.filter !== 'all' && appState.filter !== node.branch) {
+          card.classList.add('is-hidden-filter');
+        }
+
+        const meta = document.createElement('div');
+        meta.className = 'mm-node-meta';
+
+        const tagSpan = document.createElement('span');
+        tagSpan.className = 'mm-node-tag';
+        tagSpan.textContent = node.tag;
+
+        const hintBtn = document.createElement('button');
+        hintBtn.type = 'button';
+        hintBtn.className = 'mm-hint-btn';
+        hintBtn.textContent = isSolved ? `看解析` : `藍筆提示`;
+        hintBtn.addEventListener('click', function () {
+          showNodeHintOrExplanation(node.id);
+        });
+
+        meta.appendChild(tagSpan);
+        meta.appendChild(hintBtn);
+
+        const sentence = document.createElement('p');
+        sentence.className = 'mm-sentence';
+        sentence.appendChild(document.createTextNode(node.prefix));
+
+        const slotBtn = document.createElement('button');
+        slotBtn.type = 'button';
+        slotBtn.className = 'blank-slot';
+        slotBtn.setAttribute('aria-label', node.tag + `填空格`);
+
+        if (isSolved) {
+          slotBtn.classList.add('slot-filled');
+          slotBtn.textContent = appState.solvedNodes[node.id];
+          slotBtn.addEventListener('click', function () {
+            showNodeHintOrExplanation(node.id);
+          });
+        } else {
+          slotBtn.textContent = `？ 填這裡`;
+          slotBtn.addEventListener('click', function () {
+            onSlotClicked(node.id);
+          });
+          slotBtn.addEventListener('dragover', function (e) {
+            e.preventDefault();
+            slotBtn.classList.add('drag-over');
+          });
+          slotBtn.addEventListener('dragleave', function () {
+            slotBtn.classList.remove('drag-over');
+          });
+          slotBtn.addEventListener('drop', function (e) {
+            e.preventDefault();
+            slotBtn.classList.remove('drag-over');
+            const droppedWord = e.dataTransfer ? e.dataTransfer.getData('text/plain') : selectedChipWord;
+            if (droppedWord) {
+              attemptFillNode(node.id, droppedWord);
+            }
+          });
+        }
+
+        sentence.appendChild(slotBtn);
+        sentence.appendChild(document.createTextNode(node.suffix));
+
+        card.appendChild(meta);
+        card.appendChild(sentence);
+
+        if (node.branch === 'sound') {
+          soundList.appendChild(card);
+        } else {
+          lightList.appendChild(card);
+        }
+      });
+
+      requestAnimationFrame(drawMindMapLines);
+    }
+
+    function onSlotClicked(nodeId) {
+      if (selectedChipWord) {
+        attemptFillNode(nodeId, selectedChipWord);
+      } else {
+        activeNodeId = nodeId;
+        showNodeHintOrExplanation(nodeId);
+        renderMindMapNodes();
+      }
+    }
+
+    function showNodeHintOrExplanation(nodeId) {
+      const node = MIND_MAP_NODES.find(function (n) { return n.id === nodeId; });
+      if (!node) return;
+      activeNodeId = nodeId;
+      const isSolved = Boolean(appState.solvedNodes[node.id]);
+
+      if (isSolved) {
+        setFeedback('correct', `【${node.tag}】藍筆解答解析`, node.explanation);
+      } else {
+        setFeedback('neutral', `【${node.tag}】藍筆小提示`, node.hint + `（提示好啦，快選一個貼紙放進空格吧！）`);
+      }
+    }
+
+    function attemptFillNode(nodeId, word) {
+      const node = MIND_MAP_NODES.find(function (n) { return n.id === nodeId; });
+      if (!node || appState.solvedNodes[nodeId]) return;
+
+      activeNodeId = nodeId;
+      if (word === node.answer) {
+        appState.solvedNodes[nodeId] = word;
+        appState.streak += 1;
+        appState.score += 10 + (appState.streak > 1 ? 2 : 0);
+        selectedChipWord = null;
+
+        playTone(523.25, 0.1, 'triangle');
+        setTimeout(function () { playTone(659.25, 0.16, 'triangle'); }, 90);
+
+        const solvedCount = Object.keys(appState.solvedNodes).length;
+        if (solvedCount === MIND_MAP_NODES.length) {
+          setFeedback(
+            'correct',
+            `太棒了！全部 12 格心智圖完成！`,
+            `【${node.tag}】答對了！${node.explanation} 恭喜你成為「聲光科學小達人」！`
+          );
+          setTimeout(function () { playTone(783.99, 0.28, 'triangle'); }, 180);
+        } else {
+          setFeedback(
+            'correct',
+            `答對了！＋${appState.streak > 1 ? 12 : 10} 分（${appState.streak} 連勝）`,
+            `藍筆解析：${node.explanation}`
+          );
+        }
+      } else {
+        appState.streak = 0;
+        playTone(220, 0.18, 'sawtooth');
+        setFeedback(
+          'wrong',
+          `差一點點！「${word}」放在這裡怪怪的喔～`,
+          `藍筆提示：${node.hint}`
+        );
+        const nodeEl = document.getElementById(nodeId);
+        if (nodeEl) {
+          const slot = nodeEl.querySelector('.blank-slot');
+          if (slot) {
+            slot.classList.add('slot-wrong');
+            setTimeout(function () { slot.classList.remove('slot-wrong'); }, 450);
+          }
+        }
+      }
+
+      updateProgressHUD();
+      renderWordBank();
+      renderMindMapNodes();
+      saveAppStateSafe();
+    }
+
+    function setFeedback(kind, title, body) {
+      const board = document.getElementById('feedback-board');
+      const titleEl = document.getElementById('feedback-title');
+      const bodyEl = document.getElementById('feedback-body');
+      if (!board || !titleEl || !bodyEl) return;
+
+      board.classList.remove('state-correct', 'state-wrong');
+      if (kind === 'correct') board.classList.add('state-correct');
+      if (kind === 'wrong') board.classList.add('state-wrong');
+
+      titleEl.textContent = title;
+      bodyEl.textContent = body;
+    }
+
+    function updateProgressHUD() {
+      const solvedCount = Object.keys(appState.solvedNodes).length;
+      const total = MIND_MAP_NODES.length;
+      const pct = Math.round((solvedCount / total) * 100);
+
+      const heroText = document.getElementById('hero-progress-text');
+      const heroBar = document.getElementById('hero-progress-bar');
+      const hudSolved = document.getElementById('hud-solved');
+      const hudScore = document.getElementById('hud-score');
+      const hudStreak = document.getElementById('hud-streak');
+      const hudRank = document.getElementById('hud-rank');
+
+      if (heroText) heroText.textContent = `${solvedCount} / ${total} 格 (${pct}%)`;
+      if (heroBar) heroBar.style.width = pct + '%';
+      if (hudSolved) hudSolved.textContent = `${solvedCount} / ${total}`;
+      if (hudScore) hudScore.textContent = `${appState.score} 分`;
+      if (hudStreak) hudStreak.textContent = `${appState.streak} 連勝`;
+
+      let rank = `聲光實習生`;
+      if (solvedCount >= 12) rank = `聲光科學小達人`;
+      else if (solvedCount >= 8) rank = `進階小研究員`;
+      else if (solvedCount >= 4) rank = `聲光小偵探`;
+      if (hudRank) hudRank.textContent = rank;
+    }
+
+    function setMindMapFilter(filter) {
+      appState.filter = filter;
+      ['all', 'sound', 'light'].forEach(function (f) {
+        const b = document.getElementById('filter-' + f);
+        if (b) b.classList.toggle('active', f === filter);
+      });
+      renderMindMapNodes();
+      saveAppStateSafe();
+    }
+
+    function resetMindMapGame(btn) {
+      if (btn && btn.dataset.armed !== 'true') {
+        btn.dataset.armed = 'true';
+        btn.textContent = `確定要清空重玩嗎？（再按一次）`;
+        setTimeout(function () {
+          if (btn.dataset.armed === 'true') {
+            btn.dataset.armed = 'false';
+            btn.textContent = `重新開始遊戲`;
+          }
+        }, 3500);
+        return;
+      }
+      if (btn) {
+        btn.dataset.armed = 'false';
+        btn.textContent = `重新開始遊戲`;
+      }
+      appState.solvedNodes = {};
+      appState.score = 0;
+      appState.streak = 0;
+      selectedChipWord = null;
+      activeNodeId = null;
+
+      setFeedback('neutral', `已重新開始！`, `所有心智圖空格已清空，準備再次挑戰吧！`);
+      updateProgressHUD();
+      renderWordBank();
+      renderMindMapNodes();
+      saveAppStateSafe();
+    }
+
+    /* ============================================================
+       SVG CURVED PEN BRANCH CONNECTOR LINES
+       ============================================================ */
+    function drawMindMapLines() {
+      const svg = document.getElementById('mindmap-svg-layer');
+      const canvas = document.getElementById('mindmap-canvas');
+      const hub = document.getElementById('mindmap-hub');
+      if (!svg || !canvas || !hub) return;
+
+      if (window.innerWidth <= 960) {
+        svg.innerHTML = '';
+        return;
+      }
+
+      const cRect = canvas.getBoundingClientRect();
+      const hRect = hub.getBoundingClientRect();
+      const hubLeftX = hRect.left - cRect.left;
+      const hubRightX = hRect.right - cRect.left;
+      const hubCenterY = hRect.top - cRect.top + hRect.height / 2;
+
+      let paths = '';
+      MIND_MAP_NODES.forEach(function (node) {
+        const el = document.getElementById(node.id);
+        if (!el || el.classList.contains('is-hidden-filter')) return;
+        const nRect = el.getBoundingClientRect();
+        const nodeCenterY = nRect.top - cRect.top + nRect.height / 2;
+
+        if (node.branch === 'sound') {
+          const startX = hubLeftX;
+          const endX = nRect.right - cRect.left;
+          const midX = (startX + endX) / 2;
+          paths += `<path d="M ${startX} ${hubCenterY} C ${midX} ${hubCenterY}, ${midX} ${nodeCenterY}, ${endX} ${nodeCenterY}" fill="none" stroke="var(--primary)" stroke-width="2.5" stroke-dasharray="6 4" opacity="0.72"/>`;
+        } else {
+          const startX = hubRightX;
+          const endX = nRect.left - cRect.left;
+          const midX = (startX + endX) / 2;
+          paths += `<path d="M ${startX} ${hubCenterY} C ${midX} ${hubCenterY}, ${midX} ${nodeCenterY}, ${endX} ${nodeCenterY}" fill="none" stroke="var(--secondary)" stroke-width="2.5" stroke-dasharray="6 4" opacity="0.72"/>`;
+        }
+      });
+
+      svg.innerHTML = paths;
+    }
+
+    /* ============================================================
+       INITIALIZATION & STATE RESTORE
+       ============================================================ */
+    async function initApp() {
+      try {
+        if (window.notebookAppApi && typeof window.notebookAppApi.getAppState === 'function') {
+          const saved = await window.notebookAppApi.getAppState();
+          if (saved && typeof saved === 'object') {
+            if (saved.solvedNodes) appState.solvedNodes = saved.solvedNodes;
+            if (typeof saved.score === 'number') appState.score = saved.score;
+            if (typeof saved.streak === 'number') appState.streak = saved.streak;
+            if (typeof saved.audioEnabled === 'boolean') appState.audioEnabled = saved.audioEnabled;
+            if (saved.filter) appState.filter = saved.filter;
+            if (saved.forkMode) appState.forkMode = saved.forkMode;
+            if (saved.raceTemp) appState.raceTemp = saved.raceTemp;
+            if (typeof saved.shadowX === 'number') appState.shadowX = saved.shadowX;
+            if (typeof saved.mirrorAngle === 'number') appState.mirrorAngle = saved.mirrorAngle;
+            if (saved.funhouseType) appState.funhouseType = saved.funhouseType;
+            if (saved.reflectionMode) appState.reflectionMode = saved.reflectionMode;
+          }
+        }
+      } catch (err) {
+        /* Proceed with defaults */
+      }
+
+      const soundBtn = document.getElementById('sound-toggle-btn');
+      if (soundBtn) {
+        soundBtn.textContent = appState.audioEnabled ? `音效：開啟` : `音效：靜音`;
+      }
+
+      /* Restore interactive labs silently without playing initial tones */
+      const prevAudio = appState.audioEnabled;
+      appState.audioEnabled = false;
+      setForkMode(appState.forkMode);
+      setRaceTemp(appState.raceTemp);
+      const slider = document.getElementById('shadow-distance-slider');
+      if (slider) slider.value = String(appState.shadowX);
+      updateShadowLab(appState.shadowX);
+      setMirrorAngle(appState.mirrorAngle);
+      setFunhouse(appState.funhouseType);
+      setReflectionMode(appState.reflectionMode);
+      appState.audioEnabled = prevAudio;
+
+      setMindMapFilter(appState.filter);
+      updateProgressHUD();
+      renderWordBank();
+      renderMindMapNodes();
+
+      const solvedCount = Object.keys(appState.solvedNodes).length;
+      if (solvedCount > 0 && solvedCount < MIND_MAP_NODES.length) {
+        setFeedback('correct', `歡迎回來！已恢復上次的學習進度`, `目前已完成 ${solvedCount} / ${MIND_MAP_NODES.length} 格，繼續挑戰剩下的空格吧！`);
+      } else if (solvedCount === MIND_MAP_NODES.length) {
+        setFeedback('correct', `太厲害了！你已經完成了全部 12 格心智圖！`, `可以點選任何綠色節點的「看解析」複習重點，或按「重新開始遊戲」再挑戰一次！`);
+      }
+
+      window.addEventListener('resize', drawMindMapLines);
+
+      if (window.notebookAppApi && typeof window.notebookAppApi.notifyAppReady === 'function') {
+        window.notebookAppApi.notifyAppReady();
+      }
+    }
+
+    initApp();
+  </script>
+</body>
+</html>
